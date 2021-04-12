@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">01_Borrar_texto</string>
+    <string name="boton_borrado">Borrar</string>
+    <string name="boton_menos">-</string>
+    <string name="boton_mas">+</string>
+</resources>
