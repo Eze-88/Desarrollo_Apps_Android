@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     var Personas : MutableList<Persona> = mutableListOf()
     //Bandera que indica si se encontró el usuario en la lista
     var encontrado : Boolean = false
+    //Contador para recorrer la lista de usuarios
+    val i: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +41,13 @@ class MainActivity : AppCompatActivity() {
         val casilla_contra: EditText = findViewById(R.id.casilla_contra)
 
         //+++++PRE-CARGA DE LA LISTA+++++
-        miUser = Persona("Eze","123")
+        miUser = Persona("Eze","Eze")
         Personas.add(miUser)
-        miUser = Persona("Pablo","123")
+        miUser = Persona("Pablo","Pablo")
         Personas.add(miUser)
-        miUser = Persona("Jorge","123")
+        miUser = Persona("Jorge","Jorge")
         Personas.add(miUser)
-        miUser = Persona("Tito","123")
+        miUser = Persona("Tito","Tito")
         Personas.add(miUser)
 
         //+++++ACCIONES+++++
@@ -61,9 +63,12 @@ class MainActivity : AppCompatActivity() {
                             break
                         }
                     }
-                    if (encontrado)
-                        cartel.text = "Usuario ingresado OK"
-                    else
+                    if (encontrado) {
+                        if (Personas[i].contrasenia.equals(casilla_contra.text.toString()))
+                            cartel.text = "Contraseña OK"
+                        else
+                            cartel.text = "Contraseña incorrecta"
+                    } else
                         cartel.text = "Usuario no registrado"
                 }
                 else
