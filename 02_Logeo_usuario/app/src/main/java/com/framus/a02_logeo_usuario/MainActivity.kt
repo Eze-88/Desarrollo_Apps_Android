@@ -2,6 +2,7 @@ package com.framus.a02_logeo_usuario
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -14,9 +15,10 @@ class MainActivity : AppCompatActivity() {
 
     //Creo la variable del tipo Persona
     lateinit var miUser : Persona
-
     //Creo la lista de usuarios
     var Personas : MutableList<Persona> = mutableListOf()
+    //Bandera que indica si se encontró el usuario en la lista
+    var encontrado : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +38,34 @@ class MainActivity : AppCompatActivity() {
         //Casilla de ingreso de la contraseña
         val casilla_contra: EditText = findViewById(R.id.casilla_contra)
 
+        //+++++PRE-CARGA DE LA LISTA+++++
+        miUser = Persona("Eze","123")
+        Personas.add(miUser)
+        miUser = Persona("Pablo","123")
+        Personas.add(miUser)
+        miUser = Persona("Jorge","123")
+        Personas.add(miUser)
+        miUser = Persona("Tito","123")
+        Personas.add(miUser)
+
         //+++++ACCIONES+++++
         //Comportamiento del botón
         login.setOnClickListener {
+            cartel.text = ""
+            encontrado = false
             if (casilla_usuario.length()>0){
-                if (casilla_contra.length()>0)
-                    cartel.text = "Datos ingresados OK"
+                if (casilla_contra.length()>0){
+                    for ( i in 0 until Personas.size ) {
+                        if (Personas[i].usuario.equals(casilla_usuario.text.toString())) {
+                            encontrado = true
+                            break
+                        }
+                    }
+                    if (encontrado)
+                        cartel.text = "Usuario ingresado OK"
+                    else
+                        cartel.text = "Usuario no registrado"
+                }
                 else
                     Snackbar.make(root_layout,"Contraseña en blanco", Snackbar.LENGTH_SHORT).show()
             }
