@@ -55,18 +55,21 @@ class MainActivity : AppCompatActivity() {
             if (casilla_usuario.length()>0){
                 if (casilla_contra.length()>0){
                     for ( i in 0 until Personas.size ) {
-                        if (Personas[i].usuario.equals(casilla_usuario.text.toString())) {
+                        if (Personas[i].usuario.equals(casilla_usuario.text.toString()))
                             encontrado = true
-                            break
+                        if (encontrado) {
+                            if (Personas[i].contrasenia.equals(casilla_contra.text.toString())) {
+                                cartel.text = "Contraseña OK"
+                                break
+                            }
+                            else {
+                                cartel.text = "Contraseña incorrecta"
+                                break
+                            }
                         }
+                        if (i == ( Personas.size - 1 ))
+                            cartel.text = "Usuario no registrado"
                     }
-                    if (encontrado) {
-                        if (Personas[i].contrasenia.equals(casilla_contra.text.toString()))
-                            cartel.text = "Contraseña OK"
-                        else
-                            cartel.text = "Contraseña incorrecta"
-                    } else
-                        cartel.text = "Usuario no registrado"
                 }
                 else
                     Snackbar.make(root_layout,"Contraseña en blanco", Snackbar.LENGTH_SHORT).show()
