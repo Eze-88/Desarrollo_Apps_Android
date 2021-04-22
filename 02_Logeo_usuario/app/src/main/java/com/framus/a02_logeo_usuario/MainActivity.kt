@@ -1,6 +1,7 @@
 package com.framus.a02_logeo_usuario
 
 import android.app.Activity
+import android.app.Person
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -41,14 +42,10 @@ class MainActivity : AppCompatActivity() {
         val casilla_contra: EditText = findViewById(R.id.casilla_contra)
 
         //+++++PRE-CARGA DE LA LISTA+++++
-        miUser = Persona("Eze","Eze")
-        Personas.add(miUser)
-        miUser = Persona("Pablo","Pablo")
-        Personas.add(miUser)
-        miUser = Persona("Jorge","Jorge")
-        Personas.add(miUser)
-        miUser = Persona("Tito","Tito")
-        Personas.add(miUser)
+        Personas.add(Persona("Eze","Eze"))
+        Personas.add(Persona("Pablo","Pablo"))
+        Personas.add(Persona("Jorge","Jorge"))
+        Personas.add(Persona("Tito","Tito"))
 
         //+++++ACCIONES+++++
         //Comportamiento del botón
