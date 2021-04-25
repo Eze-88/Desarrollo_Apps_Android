@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navgraph"
+    app:startDestination="@id/pant_logeo">
+
+    <fragment
+        android:id="@+id/pant_logeo"
+        android:name="com.framus.Fragmentos.Pant_logeo"
+        android:label="fragment_pant_logeo"
+        tools:layout="@layout/fragment_pant_logeo" >
+        <action
+            android:id="@+id/action_pant_logeo_to_pant_princ"
+            app:destination="@id/pant_princ" />
+    </fragment>
+    <fragment
+        android:id="@+id/pant_princ"
+        android:name="com.framus.Fragmentos.Pant_princ"
+        android:label="fragment_pant_princ"
+        tools:layout="@layout/fragment_pant_princ" />
+</navigation>
