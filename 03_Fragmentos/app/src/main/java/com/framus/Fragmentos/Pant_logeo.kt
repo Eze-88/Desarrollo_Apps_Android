@@ -29,6 +29,10 @@ class Pant_logeo : Fragment() {
     lateinit var monitor: TextView
     //Creo la lista de usuarios
     var Personas : MutableList<Persona> = mutableListOf()
+    //Bandera que indica si se encontró el usuario en la lista
+    var encontrado : Boolean = false
+    //Contador para recorrer la lista de usuarios
+    val cont: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
