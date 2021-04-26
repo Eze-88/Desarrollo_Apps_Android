@@ -118,6 +118,7 @@ class Pant_logeo : Fragment() {
                             break
                         }
                         if (cont == (Personas.size - 1)){
+                            Personas.add(Persona(casilla_usuario.text.toString(),casilla_contra.text.toString()))
                             cartel.text = "Registro de usuario correcto"
                         }
                     }
