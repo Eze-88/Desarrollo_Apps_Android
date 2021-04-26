@@ -28,6 +28,8 @@ class Pant_logeo : Fragment() {
     lateinit var v: View
     //Creo el boton de logeo
     lateinit var btn_logeo: Button
+    //Creo el boton de registro
+    lateinit var btn_signup: Button
     //Creo el monitor
     lateinit var monitor: TextView
     //Creo la lista de usuarios
@@ -54,6 +56,9 @@ class Pant_logeo : Fragment() {
         //Boton de ingreso
         btn_logeo = v.findViewById(R.id.login)
         btn_logeo.text = "Ingresar"
+        //Boton de registro
+        btn_signup = v.findViewById(R.id.Signup)
+        btn_signup.text = "Registrarse"
         //Monitor
         monitor = v.findViewById(R.id.cartel)
         monitor.text = ""
@@ -75,6 +80,7 @@ class Pant_logeo : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        //Acción del botón de ingreso con usuario existente
         btn_logeo.setOnClickListener {
             //Me aseguro que la bandera está desactivada
             encontrado = false
@@ -100,6 +106,27 @@ class Pant_logeo : Fragment() {
                     Snackbar.make(root_layout, "Contraseña en blanco", Snackbar.LENGTH_SHORT).show()
             } else
                 Snackbar.make(root_layout, "Ingrese el usuario", Snackbar.LENGTH_SHORT).show()
+        }
+
+        //Acción del botón para el registro de usuario
+        btn_signup.setOnClickListener {
+            if (casilla_usuario.length() > 0){
+                if (casilla_contra.length() > 0){
+                    for (cont in 0 until Personas.size){
+                        if (Personas[cont].usuario.equals(casilla_usuario.text.toString())) {
+                            cartel.text = "Usuario ya registrado"
+                            break
+                        }
+                        if (cont == (Personas.size - 1)){
+                            cartel.text = "Registro de usuario correcto"
+                        }
+                    }
+                }
+                else
+                    Snackbar.make(root_layout, "Ingrese una contraseña", Snackbar.LENGTH_SHORT).show()
+            }
+            else
+                Snackbar.make(root_layout, "Ingrese el usuario a registrar", Snackbar.LENGTH_SHORT).show()
         }
     }
 }
