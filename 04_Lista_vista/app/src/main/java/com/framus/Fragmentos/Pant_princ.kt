@@ -6,14 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.framus.Adaptadores.AdaptadorDiscos
+import com.framus.Entidades.Discos
 import com.framus.a04_lista_vista.R
+import com.google.android.material.snackbar.Snackbar
 
 class Pant_princ : Fragment() {
 
     //Definicion de la variable para referenciar la vista
     lateinit var v: View
-    //Creo el monitor
-    lateinit var monitor: TextView
+
+    lateinit var recDiscos: RecyclerView
+    private lateinit var linearLayoutManager: LinearLayoutManager
+
+    var discos : MutableList<Discos> = ArrayList<Discos>()
+    private lateinit var discosListAdapter: AdaptadorDiscos
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,16 +31,29 @@ class Pant_princ : Fragment() {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_pant_princ, container, false)
 
-        //Monitor
-        monitor = v.findViewById(R.id.cartel2)
-
-        var usuario  = Pant_princArgs.fromBundle(requireArguments()).Usuario
-        monitor.text = "El usuario ingresado es " + usuario
+        recDiscos = v.findViewById(R.id.rec_discos)
 
         return v
     }
 
     override fun onStart() {
         super.onStart()
+
+        recDiscos.setHasFixedSize(true)
+        linearLayoutManager = LinearLayoutManager(context)
+        recDiscos.layoutManager = linearLayoutManager
+
+        discosListAdapter = AdaptadorDiscos(discos) { x ->
+            onItemClick(x)
+        }
+
+        //  discosListAdapter = DiscoListAdapter(discos)
+
+        recDiscos.adapter = discosListAdapter
+    }
+
+    fun onItemClick ( position : Int ) : Boolean {
+        Snackbar.make(v,position.toString(),Snackbar.LENGTH_SHORT).show()
+        return true
     }
 }

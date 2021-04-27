@@ -6,11 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.framus.Fragmentos.Pant_princ">
 
-    <TextView
-        android:id="@+id/cartel2"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
