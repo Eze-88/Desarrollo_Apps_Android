@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.framus.a04_lista_vista.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,24 +19,26 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Pant_princ : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    //Definicion de la variable para referenciar la vista
+    lateinit var v: View
+    //Creo el monitor
+    lateinit var monitor: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pant_princ, container, false)
+        v = inflater.inflate(R.layout.fragment_pant_princ, container, false)
+
+        //Monitor
+        monitor = v.findViewById(R.id.cartel2)
+
+        var usuario  = Pant_princArgs.fromBundle(requireArguments()).Usuario
+        monitor.text = usuario
+
+        return v
     }
 
     companion object {

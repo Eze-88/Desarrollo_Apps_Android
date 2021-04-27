@@ -91,7 +91,7 @@ class Pant_logeo : Fragment() {
                             encontrado = true
                         if (encontrado) {
                             if (Personas[cont].contrasenia.equals(casilla_contra.text.toString())) {
-                                val action = Pant_logeoDirections.actionPantLogeoToPantPrinc()
+                                val action = Pant_logeoDirections.actionPantLogeoToPantPrinc(Personas[cont].usuario)
                                 v.findNavController().navigate(action)
                                 break
                             } else {
