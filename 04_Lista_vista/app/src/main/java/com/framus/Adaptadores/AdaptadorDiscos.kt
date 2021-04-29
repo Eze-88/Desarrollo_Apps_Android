@@ -42,17 +42,14 @@ class AdaptadorDiscos(
 
         Glide
                 .with(context)
-                .load("https://firebasestorage.googleapis.com/v0/b/firestoreexample-ec489.appspot.com/o/Fotos%2FGUERNICA.jpg?alt=media&token=001a8ffc-96c2-4aeb-9120-8d5099b3fa1c")
-
+                .load("https://img.blogs.es/anexom/wp-content/uploads/2018/03/cd-desaparicion.jpg")
                 .centerInside()
                 .into(holder.getImageView());
+        holder.getImageView()
 
         holder.getCardLayout().setOnLongClickListener() {
             onItemClick(position)
         }
-
-//        holder.getButton().setOnClickListener {
- //        }
     }
 
     class DiscoHolder (v : View ) : RecyclerView.ViewHolder(v){
