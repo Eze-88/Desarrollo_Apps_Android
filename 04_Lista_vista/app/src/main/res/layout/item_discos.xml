@@ -5,10 +5,8 @@
     android:id="@+id/card_package_disco"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#BDD2E3"
     app:cardCornerRadius="20dp"
-    app:cardElevation="15dp"
-    app:cardPreventCornerOverlap="true">
+    app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,9 +16,12 @@
             android:id="@+id/titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="TextView"
-            tools:layout_editor_absoluteX="176dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_disco"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_disco"
@@ -28,17 +29,19 @@
             android:layout_height="wrap_content"
             android:shadowColor="#FFFFFF"
             android:text="+"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:rippleColor="#85CFC8"
-            app:strokeColor="#CD9393"
-            tools:layout_editor_absoluteX="302dp"
-            tools:layout_editor_absoluteY="0dp" />
+            app:strokeColor="#CD9393" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/img_disco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_slideshow"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="8dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_slideshow" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

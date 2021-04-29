@@ -1,11 +1,11 @@
 package com.framus.Fragmentos
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.framus.Adaptadores.AdaptadorDiscos
@@ -33,6 +33,12 @@ class Pant_princ : Fragment() {
 
         recDiscos = v.findViewById(R.id.rec_discos)
 
+        discos.add(Discos("Pearl Jam","Vs","1993","Grunge","vacia"))
+        discos.add(Discos("The Black Keys","El Camino","2011","Garage Rock","vacio"))
+        discos.add(Discos("Deftones","Deftones","2003","Metal Alternativo","vacio"))
+        discos.add(Discos("The Offspring","Ignition","1992","Skate Punk","vacio"))
+        discos.add(Discos("Dinosaur Jr","I Bet On Sky","2012","Indie Rock","vacio"))
+
         return v
     }
 
@@ -43,11 +49,9 @@ class Pant_princ : Fragment() {
         linearLayoutManager = LinearLayoutManager(context)
         recDiscos.layoutManager = linearLayoutManager
 
-        discosListAdapter = AdaptadorDiscos(discos) { x ->
-            onItemClick(x)
-        }
+        discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
 
-        //  discosListAdapter = DiscoListAdapter(discos)
+        //discosListAdapter = DiscoListAdapter(discos)
 
         recDiscos.adapter = discosListAdapter
     }
