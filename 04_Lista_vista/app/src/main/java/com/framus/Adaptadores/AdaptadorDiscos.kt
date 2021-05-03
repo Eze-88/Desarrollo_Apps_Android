@@ -42,7 +42,7 @@ class AdaptadorDiscos(
 
         Glide
                 .with(context)
-                .load("https://img.blogs.es/anexom/wp-content/uploads/2018/03/cd-desaparicion.jpg")
+                .load(discoList[position].caratula)
                 .centerInside()
                 .into(holder.getImageView());
         holder.getImageView()

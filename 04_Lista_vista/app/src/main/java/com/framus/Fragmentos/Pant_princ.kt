@@ -33,11 +33,11 @@ class Pant_princ : Fragment() {
 
         recDiscos = v.findViewById(R.id.rec_discos)
 
-        discos.add(Discos("Pearl Jam","Vs","1993","Grunge","vacia"))
-        discos.add(Discos("The Black Keys","El Camino","2011","Garage Rock","vacio"))
-        discos.add(Discos("Deftones","Deftones","2003","Metal Alternativo","vacio"))
-        discos.add(Discos("The Offspring","Ignition","1992","Skate Punk","vacio"))
-        discos.add(Discos("Dinosaur Jr","I Bet On Sky","2012","Indie Rock","vacio"))
+        discos.add(Discos("Pearl Jam","Vs","1993","Grunge","https://img.discogs.com/XaZw9d4nux7zQCwVMp3USt2F6QY=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1820450-1245546969.jpeg.jpg"))
+        discos.add(Discos("The Black Keys","El Camino","2011","Garage Rock","https://images-na.ssl-images-amazon.com/images/I/810GnasrfjL._SX466_.jpg"))
+        discos.add(Discos("Deftones","Deftones","2003","Metal Alternativo","https://media.pitchfork.com/photos/5929a8fa5e6ef95969321323/1:1/w_320/b3e6b384.jpg"))
+        discos.add(Discos("The Offspring","Ignition","1992","Skate Punk","https://img.discogs.com/k3QfPGvxwGt3G-k5RofPajdbnko=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-4892277-1458203046-3312.jpeg.jpg"))
+        discos.add(Discos("Dinosaur Jr","I Bet On Sky","2012","Indie Rock","https://upload.wikimedia.org/wikipedia/en/c/c4/I_Bet_on_Sky.jpeg"))
 
         return v
     }
