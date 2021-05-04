@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
+import com.framus.Entidades.Discos
 import com.framus.Entidades.Persona
 import com.framus.a04_lista_vista.R
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +30,8 @@ class Pant_logeo : Fragment() {
     lateinit var monitor: TextView
     //Creo la lista de usuarios
     var Personas : MutableList<Persona> = mutableListOf()
+    //Creo la lista de discos
+    var Discos : MutableList<Discos> = mutableListOf()
     //Bandera que indica si se encontró el usuario en la lista
     var encontrado : Boolean = false
     //Contador para recorrer la lista de usuarios
@@ -64,10 +67,11 @@ class Pant_logeo : Fragment() {
         //Casilla contraseña
         casilla_contra = v.findViewById(R.id.casilla_contra)
         //+++++PRE-CARGA DE LA LISTA+++++
-        Personas.add(Persona("Eze","Eze"))
-        Personas.add(Persona("Pablo","Pablo"))
-        Personas.add(Persona("Jorge","Jorge"))
-        Personas.add(Persona("Tito","Tito"))
+        Discos.add(Discos("Dinosaur Jr","I Bet On Sky","2012","Indie Rock","https://upload.wikimedia.org/wikipedia/en/c/c4/I_Bet_on_Sky.jpeg"))
+        Personas.add(Persona("Eze","Eze", Discos))
+//        Personas.add(Persona("Pablo","Pablo"))
+//        Personas.add(Persona("Jorge","Jorge"))
+//        Personas.add(Persona("Tito","Tito"))
 
         return v
     }
@@ -113,7 +117,8 @@ class Pant_logeo : Fragment() {
                             break
                         }
                         if (cont == (Personas.size - 1)){
-                            Personas.add(Persona(casilla_usuario.text.toString(),casilla_contra.text.toString()))
+                            Discos.add(Discos("","","","","https://static.wikia.nocookie.net/temonpe/images/c/cd/Cd.gif/revision/latest?cb=20100930214539&path-prefix=es"))
+                            Personas.add(Persona(casilla_usuario.text.toString(),casilla_contra.text.toString(), Discos))
                             cartel.text = "Registro de usuario correcto"
                         }
                     }

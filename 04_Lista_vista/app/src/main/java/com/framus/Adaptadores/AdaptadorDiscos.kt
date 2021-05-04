@@ -38,8 +38,10 @@ class AdaptadorDiscos(
     }
 
     override fun onBindViewHolder(holder: DiscoHolder, position: Int) {
+        //Muestro el nombre del disco
         holder.setName(discoList[position].titulo)
 
+        //Muestro la carátula
         Glide
                 .with(context)
                 .load(discoList[position].caratula)
