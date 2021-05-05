@@ -12,7 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import com.framus.Entidades.Discos
 import com.framus.Entidades.Persona
-import com.framus.a04_lista_vista.R
+import com.framus.a05_colecciones.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_pant_logeo.*
 import kotlinx.android.synthetic.main.fragment_pant_logeo.view.*
@@ -90,7 +90,7 @@ class Pant_logeo : Fragment() {
                             encontrado = true
                         if (encontrado) {
                             if (Personas[cont].contrasenia.equals(casilla_contra.text.toString())) {
-                                val action = Pant_logeoDirections.actionPantLogeoToPantPrinc(Personas[cont].usuario)
+                                val action = Pant_logeoDirections.actionPantLogeoToPantPrinc(Personas[cont].usuario,Personas[cont].cds.toTypedArray())
                                 v.findNavController().navigate(action)
                                 break
                             } else {

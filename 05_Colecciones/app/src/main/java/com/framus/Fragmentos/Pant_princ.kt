@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.framus.Adaptadores.AdaptadorDiscos
 import com.framus.Entidades.Discos
-import com.framus.a04_lista_vista.R
+import com.framus.a05_colecciones.R
 import com.google.android.material.snackbar.Snackbar
 
 class Pant_princ : Fragment() {

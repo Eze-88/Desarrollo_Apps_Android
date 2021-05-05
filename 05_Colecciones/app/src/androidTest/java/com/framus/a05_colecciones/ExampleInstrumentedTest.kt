@@ -1,4 +1,4 @@
-package com.framus.a04_lista_vista
+package com.framus.a05_colecciones
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

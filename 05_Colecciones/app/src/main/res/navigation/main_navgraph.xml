@@ -22,5 +22,8 @@
         <argument
             android:name="Usuario"
             app:argType="string" />
+        <argument
+            android:name="Coleccion"
+            app:argType="com.framus.Entidades.Discos[]" />
     </fragment>
 </navigation>
