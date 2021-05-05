@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "04_Lista_vista"
+rootProject.name = "05_Colecciones"
