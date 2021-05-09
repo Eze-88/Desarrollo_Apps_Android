@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.framus.Entidades.Discos
-import com.framus.a05_colecciones.R
+import com.framus.a06_tabs.R
 
 class AdaptadorDiscos(
         private var discoList: MutableList<Discos>,

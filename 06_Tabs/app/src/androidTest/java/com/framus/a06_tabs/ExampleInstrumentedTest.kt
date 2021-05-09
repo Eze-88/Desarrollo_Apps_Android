@@ -1,4 +1,4 @@
-package com.framus.a05_colecciones
+package com.framus.a06_tabs
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

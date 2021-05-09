@@ -1,6 +1,5 @@
 package com.framus.Fragmentos
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.framus.Adaptadores.AdaptadorDiscos
 import com.framus.Entidades.Discos
-import com.framus.a05_colecciones.R
+import com.framus.a06_tabs.R
 import com.google.android.material.snackbar.Snackbar
 
 class Pant_princ : Fragment() {

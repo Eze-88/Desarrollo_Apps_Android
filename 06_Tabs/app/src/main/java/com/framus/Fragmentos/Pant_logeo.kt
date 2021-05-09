@@ -12,10 +12,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import com.framus.Entidades.Discos
 import com.framus.Entidades.Persona
-import com.framus.a05_colecciones.R
+import com.framus.a06_tabs.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_pant_logeo.*
-import kotlinx.android.synthetic.main.fragment_pant_logeo.view.*
 
 class Pant_logeo : Fragment() {
 
@@ -30,8 +29,6 @@ class Pant_logeo : Fragment() {
     lateinit var monitor: TextView
     //Creo la lista de usuarios
     var Personas : MutableList<Persona> = mutableListOf()
-    //Creo la lista de discos
-    var Discos : MutableList<Discos> = mutableListOf()
     //Bandera que indica si se encontró el usuario en la lista
     var encontrado : Boolean = false
     //Contador para recorrer la lista de usuarios
