@@ -32,7 +32,6 @@ class Pant_princ : Fragment() {
         v = inflater.inflate(R.layout.fragment_pant_princ, container, false)
 
         recDiscos = v.findViewById(R.id.rec_discos)
-
         discos = Pant_princArgs.fromBundle(requireArguments()).Coleccion.toMutableList()
 
         return v
@@ -44,9 +43,7 @@ class Pant_princ : Fragment() {
         recDiscos.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recDiscos.layoutManager = linearLayoutManager
-
         discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
-
         recDiscos.adapter = discosListAdapter
     }
 
