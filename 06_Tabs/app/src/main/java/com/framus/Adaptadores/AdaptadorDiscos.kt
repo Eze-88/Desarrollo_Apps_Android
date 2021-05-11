@@ -8,10 +8,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.compose.ui.unit.Dp
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.framus.Entidades.Discos
 import com.framus.a06_tabs.R
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.item_discos.view.*
 
 class AdaptadorDiscos(
         private var discoList: MutableList<Discos>,
@@ -70,12 +74,20 @@ class AdaptadorDiscos(
             return view.findViewById(R.id.card_package_disco)
         }
 
-        fun getButton (): Button {
-            return view.findViewById(R.id.btn_disco)
+        fun getButton (enlace: String): Button {
+            val boton: Button = view.findViewById(R.id.btn_disco)
+            return boton
         }
 
         fun getImageView () : ImageView {
-            return view.findViewById(R.id.img_disco)
+            val v: ImageView = view.findViewById(R.id.img_disco)
+            val txt: TextView = view.findViewById(R.id.titulo)
+
+            v.setOnClickListener {
+                txt.text = "Imagen presionada"
+            }
+
+            return v
         }
     }
 }
