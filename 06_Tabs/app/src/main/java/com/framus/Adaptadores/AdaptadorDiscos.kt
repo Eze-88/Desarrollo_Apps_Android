@@ -74,11 +74,6 @@ class AdaptadorDiscos(
             return view.findViewById(R.id.card_package_disco)
         }
 
-        fun getButton (enlace: String): Button {
-            val boton: Button = view.findViewById(R.id.btn_disco)
-            return boton
-        }
-
         fun getImageView () : ImageView {
             val v: ImageView = view.findViewById(R.id.img_disco)
             val txt: TextView = view.findViewById(R.id.titulo)
