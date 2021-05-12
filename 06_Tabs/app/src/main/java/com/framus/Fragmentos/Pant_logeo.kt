@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
-import com.framus.Entidades.Discos
 import com.framus.Entidades.Persona
 import com.framus.a06_tabs.R
 import com.google.android.material.snackbar.Snackbar
@@ -43,14 +42,11 @@ class Pant_logeo : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //+++++PRE-CARGA DE LA LISTA+++++
-        Personas.add(Persona("Eze","Eze", mutableListOf(
-            Discos("Dinosaur Jr","I Bet On Sky","2012","Indie Rock","https://upload.wikimedia.org/wikipedia/en/c/c4/I_Bet_on_Sky.jpeg"),
-            Discos("Deftones","Deftones","2003","Metal Alternativo","https://media.pitchfork.com/photos/5929a8fa5e6ef95969321323/1:1/w_320/b3e6b384.jpg")
-        )))
-        Personas.add(Persona("Pablo","Pablo", mutableListOf(Discos("Pearl Jam","Vs","1993","Grunge","https://img.discogs.com/XaZw9d4nux7zQCwVMp3USt2F6QY=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1820450-1245546969.jpeg.jpg"))))
-        Personas.add(Persona("Jorge","Jorge", mutableListOf(Discos("The Black Keys","El Camino","2011","Garage Rock","https://images-na.ssl-images-amazon.com/images/I/810GnasrfjL._SX466_.jpg"))))
-        Personas.add(Persona("Tito","Tito", mutableListOf(Discos("Deftones","Deftones","2003","Metal Alternativo","https://media.pitchfork.com/photos/5929a8fa5e6ef95969321323/1:1/w_320/b3e6b384.jpg"))))
+        //+++++PRE-CARGA DE LA LISTA de usuarios+++++
+        Personas.add(Persona("Eze", "Eze"))
+        Personas.add(Persona("Pablo", "Pablo"))
+        Personas.add(Persona("Jorge", "Jorge"))
+        Personas.add(Persona("Tito", "Tito"))
     }
 
     override fun onCreateView(
@@ -94,7 +90,7 @@ class Pant_logeo : Fragment() {
                             encontrado = true
                         if (encontrado) {
                             if (Personas[cont].contrasenia.equals(casilla_contra.text.toString())) {
-                                val action = Pant_logeoDirections.actionPantLogeoToPantPrinc(Personas[cont].usuario,Personas[cont].cds.toTypedArray())
+                                val action = Pant_logeoDirections.actionPantLogeoToPantPrinc()
                                 v.findNavController().navigate(action)
                                 break
                             } else {
@@ -121,7 +117,7 @@ class Pant_logeo : Fragment() {
                             break
                         }
                         if (cont == (Personas.size - 1)){
-                            Personas.add(Persona(casilla_usuario.text.toString(),casilla_contra.text.toString(), mutableListOf(Discos("","","","","https://static.wikia.nocookie.net/temonpe/images/c/cd/Cd.gif/revision/latest?cb=20100930214539&path-prefix=es"))))
+                            Personas.add(Persona(casilla_usuario.text.toString(),casilla_contra.text.toString()))
                             cartel.text = "Registro de usuario correcto"
                         }
                     }

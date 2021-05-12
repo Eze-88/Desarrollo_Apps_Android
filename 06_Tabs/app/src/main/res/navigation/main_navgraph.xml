@@ -18,12 +18,5 @@
         android:id="@+id/pant_princ"
         android:name="com.framus.Fragmentos.Pant_princ"
         android:label="fragment_pant_princ"
-        tools:layout="@layout/fragment_pant_princ" >
-        <argument
-            android:name="Usuario"
-            app:argType="string" />
-        <argument
-            android:name="Coleccion"
-            app:argType="com.framus.Entidades.Discos[]" />
-    </fragment>
+        tools:layout="@layout/fragment_pant_princ" />
 </navigation>
