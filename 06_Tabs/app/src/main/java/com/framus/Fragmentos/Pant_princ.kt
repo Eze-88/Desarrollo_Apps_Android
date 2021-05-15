@@ -49,12 +49,12 @@ class Pant_princ : Fragment() {
         recDiscos.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recDiscos.layoutManager = linearLayoutManager
+        //Le paso el listado de discos al Adaptador
         discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
         recDiscos.adapter = discosListAdapter
     }
 
     fun onItemClick ( position : Int ) : Boolean {
-        Snackbar.make(v,position.toString(),Snackbar.LENGTH_SHORT).show()
         return true
     }
 }
