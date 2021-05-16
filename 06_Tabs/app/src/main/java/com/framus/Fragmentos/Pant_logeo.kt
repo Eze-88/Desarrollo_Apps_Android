@@ -1,5 +1,7 @@
 package com.framus.Fragmentos
 
+import android.icu.text.DateFormat
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,13 +10,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.findNavController
 import com.framus.BaseDeDatos.usuarioDao
 import com.framus.BaseDeDatos.appDatabase
 import com.framus.Entidades.Persona
 import com.framus.a06_tabs.R
-import com.google.android.material.snackbar.Snackbar
-import com.wajahatkarim3.roomexplorer.RoomExplorer
 
 class Pant_logeo : Fragment() {
 
@@ -40,17 +39,11 @@ class Pant_logeo : Fragment() {
     lateinit var casilla_usuario: EditText
     //Casilla de ingreso de la contraseña
     lateinit var casilla_contra: EditText
-
-    var rnd: Int = 0
+    //Generador del ID de usuario
+    var gen_id: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        //+++++PRE-CARGA DE LA LISTA de usuarios+++++
-//        Personas.add(Persona(1,"Eze", "Eze"))
-//        Personas.add(Persona(2,"Pablo", "Pablo"))
-//        Personas.add(Persona(3,"Jorge", "Jorge"))
-//        Personas.add(Persona(4,"Tito", "Tito"))
     }
 
     override fun onCreateView(
@@ -84,8 +77,8 @@ class Pant_logeo : Fragment() {
         super.onStart()
 
         btn_signup.setOnClickListener {
-            rnd = (0..10).random()
-            usuarioDao?.insertPerson(Persona(rnd, casilla_usuario.text.toString(), casilla_contra.text.toString()))
+            gen_id = (0..9999).random()
+            usuarioDao?.insertPerson(Persona(gen_id, casilla_usuario.text.toString(), casilla_contra.text.toString()))
         }
 
 //        //Acción del botón de ingreso con usuario existente
