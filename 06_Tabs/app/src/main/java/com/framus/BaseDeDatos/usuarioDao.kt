@@ -17,4 +17,10 @@ public interface usuarioDao {
 
     @Query("SELECT * FROM users WHERE id = :id")
     fun loadPersonById(id: Int): Persona?
+
+    @Query("SELECT * FROM users WHERE usuario = :usuario")
+    fun loadPersonaByName(usuario: String): Persona?
+
+    @Update
+    fun updatePerson(user: Persona?)
 }
