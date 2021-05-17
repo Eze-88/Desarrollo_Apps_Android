@@ -39,19 +39,10 @@ class Pant_princ : Fragment() {
     //Generador del ID de usuario
     var gen_id: Int = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_pant_princ, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        recDiscos = v.findViewById(R.id.rec_discos)
-
-        //Boton de modificacion de contraseña
-        btn_venta = v.findViewById(R.id.Venta)
-
-        db = appDatabase.getAppDataBase(v.context)
+        db = appDatabase.getAppDataBase(requireContext())
         discosDAO = db?.discosDAO()
 
         //+++++PRE-CARGA DE LA LISTA de discos+++++
@@ -68,6 +59,19 @@ class Pant_princ : Fragment() {
 
         //Eliminando un disco
         //discosDAO?.delete(Discos(5, "", "", "", "", ""))
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        v = inflater.inflate(R.layout.fragment_pant_princ, container, false)
+
+        recDiscos = v.findViewById(R.id.rec_discos)
+
+        //Boton de modificacion de contraseña
+        btn_venta = v.findViewById(R.id.Venta)
 
         return v
     }

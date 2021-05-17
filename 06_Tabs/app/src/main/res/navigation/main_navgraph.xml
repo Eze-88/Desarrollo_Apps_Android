@@ -39,5 +39,17 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detalles_A_to_correccion"
+            app:destination="@id/correccion" />
+    </fragment>
+    <fragment
+        android:id="@+id/correccion"
+        android:name="com.framus.Fragmentos.Correccion"
+        android:label="fragment_correccion"
+        tools:layout="@layout/fragment_correccion" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.discosDAO
 import com.framus.BaseDeDatos.usuarioDao
@@ -26,6 +28,10 @@ class Detalles_A : Fragment() {
     lateinit var text_titulo: TextView
     lateinit var text_anio: TextView
     lateinit var text_genero: TextView
+    //Creo el boton de confirmacion de compra
+    lateinit var btn_compra: Button
+    //Creo el boton de confirmacion de correcion
+    lateinit var btn_mod: Button
 
     var pos: Int = 0
 
@@ -51,6 +57,11 @@ class Detalles_A : Fragment() {
         db = appDatabase.getAppDataBase(v.context)
         discosDAO = db?.discosDAO()
 
+        //Boton de venta
+        btn_compra = v.findViewById(R.id.Comprar)
+        //Boton de correcion
+        btn_mod = v.findViewById(R.id.Corregir)
+
         return v
     }
 
@@ -69,5 +80,18 @@ class Detalles_A : Fragment() {
         }
 
         text_banda.text = "Banda: " + cd[pos].banda
+        text_titulo.text = "Título: " + cd[pos].titulo
+        text_anio.text = "Año: " + cd[pos].anio
+        text_genero.text = "Género: " + cd[pos].genero
+
+        btn_compra.setOnClickListener {
+            discosDAO?.delete(Discos(id, "", "", "", "", ""))
+        }
+
+        btn_mod.setOnClickListener {
+            //val action = Pant_princDirections.actionPantPrincToVender()
+            val action = Detalles_ADirections.actionDetallesAToCorreccion(id)
+            v.findNavController().navigate(action)
+        }
     }
 }

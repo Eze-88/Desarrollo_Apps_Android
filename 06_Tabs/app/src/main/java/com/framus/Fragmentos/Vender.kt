@@ -16,7 +16,7 @@ class Vender : Fragment() {
 
     //Definicion de la variable para referenciar la vista
     lateinit var v: View
-    //Creo el boton de confirmacion de compra
+    //Creo el boton de confirmacion de venta
     lateinit var btn_conf: Button
     //Casillas
     lateinit var casilla_banda: EditText
@@ -43,7 +43,7 @@ class Vender : Fragment() {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_vender, container, false)
 
-        //Boton de compra
+        //Boton de venta
         btn_conf = v.findViewById(R.id.Conf_venta)
         //Casillas
         casilla_banda= v.findViewById(R.id.casilla_banda)
