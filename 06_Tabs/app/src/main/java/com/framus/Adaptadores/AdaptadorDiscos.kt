@@ -10,9 +10,11 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.compose.ui.unit.Dp
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.framus.Entidades.Discos
+import com.framus.Fragmentos.Pant_princDirections
 import com.framus.a06_tabs.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.item_discos.view.*
@@ -76,10 +78,10 @@ class AdaptadorDiscos(
 
         fun getImageView (id: Int) : ImageView {
             val v: ImageView = view.findViewById(R.id.img_disco)
-            val txt: TextView = view.findViewById(R.id.titulo)
 
             v.setOnClickListener {
-                txt.text = id.toString()
+                val action = Pant_princDirections.actionPantPrincToDetallesA(id)
+                v.findNavController().navigate(action)
             }
 
             return v
