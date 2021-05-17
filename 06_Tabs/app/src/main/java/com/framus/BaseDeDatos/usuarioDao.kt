@@ -15,9 +15,6 @@ public interface usuarioDao {
     @Delete
     fun delete(user: Persona?)
 
-    @Query("SELECT * FROM users WHERE id = :id")
-    fun loadPersonById(id: Int): Persona?
-
     @Query("SELECT * FROM users WHERE usuario = :usuario")
     fun loadPersonaByName(usuario: String): Persona?
 

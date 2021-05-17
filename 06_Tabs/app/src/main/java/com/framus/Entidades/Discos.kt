@@ -2,18 +2,33 @@ package com.framus.Entidades
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class Discos (banda: String, titulo: String, anio: String, genero: String, caratula: String) : Parcelable {
+@Entity(tableName = "discos")
+class Discos (id: Int, banda: String, titulo: String, anio: String, genero: String, caratula: String) : Parcelable {
+
+    //Identificador del usuario, el que nunca se debe repetir
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: Int
 
     //Listado de atributos
+    @ColumnInfo(name = "banda")
     var banda: String
+    @ColumnInfo(name = "titulo")
     var titulo: String
+    @ColumnInfo(name = "anio")
     var anio: String
+    @ColumnInfo(name = "genero")
     var genero: String
+    @ColumnInfo(name = "caratula")
     var caratula: String
 
     //Tomo los parámetros recibidos y se los asigno a los atributos
     init {
+        this.id = id
         this.banda = banda
         this.titulo = titulo
         this.anio = anio
@@ -21,7 +36,8 @@ class Discos (banda: String, titulo: String, anio: String, genero: String, carat
         this.caratula = caratula
     }
 
-    constructor(source: Parcel) : this(
+    constructor(source: Parcel) :this(
+            source.readInt()!!,
             source.readString()!!,
             source.readString()!!,
             source.readString()!!,
@@ -32,6 +48,7 @@ class Discos (banda: String, titulo: String, anio: String, genero: String, carat
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeInt(id)
         writeString(banda)
         writeString(titulo)
         writeString(anio)

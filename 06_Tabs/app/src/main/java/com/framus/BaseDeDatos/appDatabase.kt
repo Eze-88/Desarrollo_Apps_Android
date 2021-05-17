@@ -4,14 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.framus.Entidades.Discos
 import com.framus.Entidades.Persona
 
 
-@Database(entities = [Persona::class], version = 1, exportSchema = false)
+@Database(entities = [Persona::class, Discos::class], version = 1, exportSchema = false)
 
 public  abstract class appDatabase : RoomDatabase() {
 
     abstract fun usuarioDao(): usuarioDao
+    abstract fun discosDAO(): discosDAO
 
     companion object {
         var INSTANCE: appDatabase? = null
@@ -28,7 +30,6 @@ public  abstract class appDatabase : RoomDatabase() {
             }
             return INSTANCE
         }
-
         fun destroyDataBase(){
             INSTANCE = null
         }

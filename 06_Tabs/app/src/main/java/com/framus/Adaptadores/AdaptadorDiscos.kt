@@ -50,8 +50,8 @@ class AdaptadorDiscos(
                 .with(context)
                 .load(discoList[position].caratula)
                 .centerInside()
-                .into(holder.getImageView());
-        holder.getImageView()
+                .into(holder.getImageView(discoList[position].id));
+        holder.getImageView(discoList[position].id)
 
         holder.getCardLayout().setOnLongClickListener() {
             onItemClick(position)
@@ -74,12 +74,12 @@ class AdaptadorDiscos(
             return view.findViewById(R.id.card_package_disco)
         }
 
-        fun getImageView () : ImageView {
+        fun getImageView (id: Int) : ImageView {
             val v: ImageView = view.findViewById(R.id.img_disco)
             val txt: TextView = view.findViewById(R.id.titulo)
 
             v.setOnClickListener {
-                txt.text = "Imagen presionada"
+                txt.text = id.toString()
             }
 
             return v

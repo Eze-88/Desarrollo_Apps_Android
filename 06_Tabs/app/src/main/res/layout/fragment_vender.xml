@@ -1,0 +1,129 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B4BDFFF5"
+    tools:context="com.framus.Fragmentos.Vender">
+
+    <TextView
+        android:id="@+id/txt_banda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Banda:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_titulo"
+        app:layout_constraintEnd_toStartOf="@+id/casilla_banda"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Titulo:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_anio"
+        app:layout_constraintEnd_toStartOf="@+id/casilla_titulo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_banda" />
+
+    <TextView
+        android:id="@+id/txt_anio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Año:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_genero"
+        app:layout_constraintEnd_toStartOf="@+id/casilla_anio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
+
+    <TextView
+        android:id="@+id/txt_genero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Genero:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_cover"
+        app:layout_constraintEnd_toStartOf="@+id/casilla_genero"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_anio" />
+
+    <TextView
+        android:id="@+id/txt_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cover:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/Conf_venta"
+        app:layout_constraintEnd_toStartOf="@+id/casilla_cover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_genero" />
+
+    <EditText
+        android:id="@+id/casilla_banda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/casilla_titulo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_banda"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/casilla_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/casilla_anio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_titulo"
+        app:layout_constraintTop_toBottomOf="@+id/casilla_banda" />
+
+    <EditText
+        android:id="@+id/casilla_anio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/casilla_genero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_anio"
+        app:layout_constraintTop_toBottomOf="@+id/casilla_titulo" />
+
+    <EditText
+        android:id="@+id/casilla_genero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/casilla_cover"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_genero"
+        app:layout_constraintTop_toBottomOf="@+id/casilla_anio" />
+
+    <EditText
+        android:id="@+id/casilla_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/Conf_venta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_cover"
+        app:layout_constraintTop_toBottomOf="@+id/casilla_genero" />
+
+    <Button
+        android:id="@+id/Conf_venta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar venta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/casilla_cover" />
+</androidx.constraintlayout.widget.ConstraintLayout>

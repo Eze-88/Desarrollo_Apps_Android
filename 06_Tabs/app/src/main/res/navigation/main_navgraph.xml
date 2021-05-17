@@ -18,5 +18,14 @@
         android:id="@+id/pant_princ"
         android:name="com.framus.Fragmentos.Pant_princ"
         android:label="fragment_pant_princ"
-        tools:layout="@layout/fragment_pant_princ" />
+        tools:layout="@layout/fragment_pant_princ" >
+        <action
+            android:id="@+id/action_pant_princ_to_vender"
+            app:destination="@id/vender" />
+    </fragment>
+    <fragment
+        android:id="@+id/vender"
+        android:name="com.framus.Fragmentos.Vender"
+        android:label="fragment_vender"
+        tools:layout="@layout/fragment_vender" />
 </navigation>
