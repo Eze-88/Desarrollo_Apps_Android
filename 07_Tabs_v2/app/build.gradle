@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.framus.a06_Tabs"
+        applicationId "com.framus.a07_Tabs_v2"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
