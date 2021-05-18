@@ -12,6 +12,8 @@ import com.framus.a07_tabs_v2.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
+var identificador: Int = 0
+
 class Contenedor_detalles : Fragment() {
 
     lateinit var v: View
@@ -33,6 +35,10 @@ class Contenedor_detalles : Fragment() {
 
         viewPager = v.findViewById(R.id.view_pager)
 
+        var id_cd = Contenedor_detallesArgs.fromBundle(requireArguments()).id
+
+        identificador = id_cd
+
         return v
     }
 
@@ -40,7 +46,6 @@ class Contenedor_detalles : Fragment() {
         super.onStart()
 
         viewPager.setAdapter(ViewPagerAdapter(requireActivity()))
-        // viewPager.isUserInputEnabled = false
 
         TabLayoutMediator(tabLayout, viewPager, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
             when (position) {
@@ -54,11 +59,18 @@ class Contenedor_detalles : Fragment() {
     class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
         override fun createFragment(position: Int): Fragment {
 
-            return when(position){
-                0 -> Detalles_A()
-                1 -> Detalles_B()
+            val fragment_a = Detalles_A()
+            fragment_a.arguments = Bundle().apply {
+                putInt("id_cd", identificador)
+            }
 
-                else -> Detalles_A()
+            val fragment_b = Detalles_B()
+
+            return when (position) {
+                0 -> fragment_a
+                1 -> fragment_b
+
+                else -> fragment_a
             }
         }
 

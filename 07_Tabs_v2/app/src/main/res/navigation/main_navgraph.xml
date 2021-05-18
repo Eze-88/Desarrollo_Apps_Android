@@ -23,8 +23,8 @@
             android:id="@+id/action_pant_princ_to_vender"
             app:destination="@id/vender" />
         <action
-            android:id="@+id/action_pant_princ_to_detalles_A"
-            app:destination="@id/detalles_A" />
+            android:id="@+id/action_pant_princ_to_contenedor_detalles"
+            app:destination="@id/contenedor_detalles" />
     </fragment>
     <fragment
         android:id="@+id/vender"
@@ -36,18 +36,32 @@
         android:name="com.framus.Fragmentos.Detalles_A"
         android:label="fragment_detalles__a"
         tools:layout="@layout/fragment_detalles__a" >
-        <argument
-            android:name="id"
-            app:argType="integer" />
         <action
             android:id="@+id/action_detalles_A_to_correccion"
             app:destination="@id/correccion" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/correccion"
         android:name="com.framus.Fragmentos.Correccion"
         android:label="fragment_correccion"
         tools:layout="@layout/fragment_correccion" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalles_B"
+        android:name="com.framus.Fragmentos.Detalles_B"
+        android:label="fragment_detalles__b"
+        tools:layout="@layout/fragment_detalles__b" />
+    <fragment
+        android:id="@+id/contenedor_detalles"
+        android:name="com.framus.Fragmentos.Contenedor_detalles"
+        android:label="fragment_contenedor_detalles"
+        tools:layout="@layout/fragment_contenedor_detalles" >
         <argument
             android:name="id"
             app:argType="integer" />

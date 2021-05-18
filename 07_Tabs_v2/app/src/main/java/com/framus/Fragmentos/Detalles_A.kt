@@ -63,12 +63,20 @@ class Detalles_A : Fragment() {
         return v
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        arguments?.takeIf { it.containsKey("id_cd") }?.apply {
+            identificador = getInt("id_cd")
+        }
+    }
+
     override fun onStart() {
         super.onStart()
 
         cd = discosDAO?.loadAllPersons() as MutableList<Discos>
 
-        var id: Int = Detalles_AArgs.fromBundle(requireArguments()).id
+        val id: Int = identificador
 
         for ( i in 0 until cd.size){
             if (cd[i].id == id){
@@ -87,9 +95,12 @@ class Detalles_A : Fragment() {
         }
 
         btn_mod.setOnClickListener {
-            //val action = Pant_princDirections.actionPantPrincToVender()
             val action = Detalles_ADirections.actionDetallesAToCorreccion(id)
             v.findNavController().navigate(action)
         }
+    }
+
+    companion object{
+        var identificador: Int = 0
     }
 }
