@@ -5,29 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
+import com.framus.BaseDeDatos.appDatabase
+import com.framus.BaseDeDatos.discosDAO
+import com.framus.Entidades.Discos
 import com.framus.a07_tabs_v2.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Detalles_B.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Detalles_B : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    //Definicion de la variable para referenciar la vista
+    lateinit var v: View
+    //Definición de las variables la base de datos
+    private var db: appDatabase? = null
+    private var discosDAO: discosDAO? = null
+
+    var cd:  MutableList<Discos> = mutableListOf()
+    var pos: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -35,26 +33,38 @@ class Detalles_B : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalles__b, container, false)
+        v = inflater.inflate(R.layout.fragment_detalles__b, container, false)
+
+        db = appDatabase.getAppDataBase(v.context)
+        discosDAO = db?.discosDAO()
+
+        cd = discosDAO?.loadAllPersons() as MutableList<Discos>
+
+        val id: Int = Detalles_A.identificador
+
+        for ( i in 0 until cd.size){
+            if (cd[i].id == id){
+                pos = i
+                break
+            }
+        }
+
+        //Muestro la caratula
+        Glide
+            .with(requireContext())
+            .load(cd[pos].caratula)
+            .centerInside()
+            .into(getImageView())
+        getImageView()
+
+        return v
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Detalles_B.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Detalles_B().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun getImageView () : ImageView {
+        return v.findViewById(R.id.caratula_grande)
+    }
+
+    companion object{
+        var identificador: Int = 0
     }
 }
