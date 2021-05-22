@@ -1,0 +1,42 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+<!--</PreferenceScreen>-->
+
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Letra">
+
+<!--        <EditTextPreference-->
+<!--            app:key="signature"-->
+<!--            app:title="@string/signature_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
+
+        <ListPreference
+            app:defaultValue="Botones"
+            app:entries="@array/boton_entries"
+            app:entryValues="@array/boton_values"
+            app:key="Botones"
+            app:title="Color de los botones"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Tema">
+
+        <SwitchPreferenceCompat
+            app:key="Tema"
+            app:title="Tema oscuro" />
+<!--            app:summaryOff="@string/attachment_summary_off"-->
+<!--            app:summaryOn="@string/attachment_summary_on"-->
+<!--            />-->
+
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="attachment"-->
+<!--            app:summaryOff="@string/attachment_summary_off"-->
+<!--            app:summaryOn="@string/attachment_summary_on"-->
+<!--            app:title="Algun texto de prueba" />-->
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

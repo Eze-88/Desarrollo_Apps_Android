@@ -67,4 +67,6 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
     implementation 'com.wajahatkarim3:roomexplorer:0.0.2'
+
+    implementation 'androidx.preference:preference:1.1.1'
 }

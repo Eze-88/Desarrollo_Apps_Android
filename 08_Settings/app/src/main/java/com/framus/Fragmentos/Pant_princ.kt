@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.framus.Adaptadores.AdaptadorDiscos
@@ -14,6 +15,7 @@ import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.discosDAO
 import com.framus.Entidades.Discos
 import com.framus.a08_settings.R
+
 
 class Pant_princ : Fragment() {
 
@@ -84,6 +86,8 @@ class Pant_princ : Fragment() {
         discos = discosDAO?.loadAllPersons() as MutableList<Discos>
         discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
         recDiscos.adapter = discosListAdapter
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         btn_venta.setOnClickListener {
             val action = Pant_princDirections.actionPantPrincToVender()
