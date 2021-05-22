@@ -31,6 +31,8 @@ class Pant_princ : Fragment() {
     //Creo el boton de venta
     lateinit var btn_venta: Button
 
+    lateinit var btnSettings : Button
+
     //Definición de las variables la base de datos
     private var db: appDatabase? = null
     private var discosDAO: discosDAO? = null
@@ -72,6 +74,8 @@ class Pant_princ : Fragment() {
         //Boton de modificacion de contraseña
         btn_venta = v.findViewById(R.id.Venta)
 
+        btnSettings = v.findViewById(R.id.btnSettings)
+
         return v
     }
 
@@ -92,6 +96,12 @@ class Pant_princ : Fragment() {
         btn_venta.setOnClickListener {
             val action = Pant_princDirections.actionPantPrincToVender()
             v.findNavController().navigate(action)
+        }
+
+        btnSettings.setOnClickListener {
+            val action = Pant_princDirections.actionPantPrincToSettingsActivity()
+            v.findNavController().navigate(action)
+
         }
     }
 

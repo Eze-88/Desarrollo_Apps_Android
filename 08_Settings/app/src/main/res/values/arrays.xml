@@ -8,8 +8,8 @@
     </string-array>
 
     <string-array name="boton_values">
-        <item>celeste</item>
-        <item>verde</item>
+        <item>#42f5f2</item>
+        <item>#c840f5</item>
     </string-array>
 
 </resources>

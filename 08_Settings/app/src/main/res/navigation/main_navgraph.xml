@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_pant_princ_to_contenedor_detalles"
             app:destination="@id/contenedor_detalles" />
+        <action
+            android:id="@+id/action_pant_princ_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
     </fragment>
     <fragment
         android:id="@+id/vender"
@@ -66,4 +69,8 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.framus.a08_settings.SettingsActivity"
+        android:label="SettingsActivity" />
 </navigation>
