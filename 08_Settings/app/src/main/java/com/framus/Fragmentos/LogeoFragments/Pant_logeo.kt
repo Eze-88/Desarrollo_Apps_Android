@@ -45,7 +45,7 @@ class Pant_logeo : Fragment() {
     lateinit var casilla_contra: EditText
     //Generador del ID de usuario
     var gen_id: Int = 0
-    //Variable para las verificaciones
+    //Lista para las verificaciones
     lateinit var userList :MutableList<Persona>
 
     override fun onCreate(savedInstanceState: Bundle?) {
