@@ -5,22 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.bumptech.glide.Glide
 
 class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        //Luego de 2000mseg se ejecuta la activity principal
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }, 2000)
 
-        Glide
-            .with(applicationContext)
-            .load("https://dbdzm869oupei.cloudfront.net/img/vinylrugs/preview/18784.png")
-            .centerInside()
-            .into(findViewById(R.id.imageView))
+        //Lo relacionado al diseño está en el XML
     }
 }
