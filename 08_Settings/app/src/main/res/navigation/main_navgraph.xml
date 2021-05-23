@@ -7,12 +7,21 @@
 
     <fragment
         android:id="@+id/pant_logeo"
-        android:name="com.framus.Fragmentos.Pant_logeo"
+        android:name="com.framus.Fragmentos.LogeoFragments.Pant_logeo"
         android:label="fragment_pant_logeo"
         tools:layout="@layout/fragment_pant_logeo" >
         <action
             android:id="@+id/action_pant_logeo_to_pant_princ"
             app:destination="@id/pant_princ" />
+        <action
+            android:id="@+id/action_pant_logeo_to_bajaUsr"
+            app:destination="@id/bajaUsr" />
+        <action
+            android:id="@+id/action_pant_logeo_to_cmbContra"
+            app:destination="@id/cmbContra" />
+        <action
+            android:id="@+id/action_pant_logeo_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
     </fragment>
     <fragment
         android:id="@+id/pant_princ"
@@ -73,4 +82,14 @@
         android:id="@+id/settingsActivity"
         android:name="com.framus.a08_settings.SettingsActivity"
         android:label="SettingsActivity" />
+    <fragment
+        android:id="@+id/bajaUsr"
+        android:name="com.framus.Fragmentos.LogeoFragments.BajaUsr"
+        android:label="fragment_baja_usr"
+        tools:layout="@layout/fragment_baja_usr" />
+    <fragment
+        android:id="@+id/cmbContra"
+        android:name="com.framus.Fragmentos.LogeoFragments.CmbContra"
+        android:label="fragment_cmb_contra"
+        tools:layout="@layout/fragment_cmb_contra" />
 </navigation>

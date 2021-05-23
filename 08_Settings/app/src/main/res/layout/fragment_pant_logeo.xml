@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B4BDFFF5"
-    tools:context="com.framus.Fragmentos.Pant_logeo">
+    tools:context="com.framus.Fragmentos.LogeoFragments.Pant_logeo">
 
     <Button
         android:id="@+id/login"

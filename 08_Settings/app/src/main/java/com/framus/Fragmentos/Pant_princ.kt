@@ -103,7 +103,7 @@ class Pant_princ : Fragment() {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        btn_venta.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#42f5f2").toString()))
+        btn_venta.setBackgroundColor(Color.parseColor(prefs.getString("Botones","")))
 
         btn_venta.setOnClickListener {
             val action = Pant_princDirections.actionPantPrincToVender()
@@ -119,10 +119,10 @@ class Pant_princ : Fragment() {
         val frame: ConstraintLayout = v.findViewById(R.id.frameLayout2)
 
 
-        if (prefs.getBoolean("Tamanio",true))
-            frame.setBackgroundColor(Color.parseColor("#000000"))
+        if (prefs.getBoolean("Fondo",false))
+            frame.setBackgroundColor(Color.parseColor(getString(R.color.rojo)))
         else
-            frame.setBackgroundColor(Color.parseColor("#ffcccc"))
+            frame.setBackgroundColor(Color.parseColor(getString(R.color.black)))
     }
 
     fun onItemClick ( position : Int ) : Boolean {
