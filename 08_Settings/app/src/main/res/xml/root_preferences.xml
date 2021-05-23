@@ -4,8 +4,7 @@
     <PreferenceCategory app:title="Letra">
 
         <ListPreference
-            android:defaultValue="true"
-            app:defaultValue="true"
+            android:defaultValue="#0000FF"
             app:entries="@array/boton_entries"
             app:entryValues="@array/boton_values"
             app:key="Botones"

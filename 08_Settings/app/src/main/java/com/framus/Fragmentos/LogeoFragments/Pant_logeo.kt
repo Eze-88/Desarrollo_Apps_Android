@@ -174,27 +174,6 @@ class Pant_logeo : Fragment() {
 
         //Accion para la modificación de la contraseña
         btn_contra.setOnClickListener {
-//            encontrado = false
-//            if (casilla_usuario.length() > 0){
-//                if (casilla_contra.length() > 0){
-//                    userList = usuarioDao?.loadAllPersons() as MutableList<Persona>
-//                    for (cont in 0 until userList.size){
-//                        if (userList[cont].usuario.equals(casilla_usuario.text.toString()))
-//                            encontrado = true
-//                        if (encontrado) {
-//                            usuarioDao?.updatePerson(Persona(userList[cont].id,casilla_usuario.text.toString(),casilla_contra.text.toString()))
-//                            Snackbar.make(root_layout, "Modificacion exitosa"+" "+cont.toString(), Snackbar.LENGTH_SHORT).show()
-//                            break
-//                        }
-//                        if (cont == (userList.size - 1))
-//                            Snackbar.make(root_layout, "El usuario no existe", Snackbar.LENGTH_SHORT).show()
-//                    }
-//                }
-//                else
-//                    Snackbar.make(root_layout, "Ingrese una contraseña", Snackbar.LENGTH_SHORT).show()
-//            }
-//            else
-//                Snackbar.make(root_layout, "Ingrese el usuario a modificar", Snackbar.LENGTH_SHORT).show()
             val action = Pant_logeoDirections.actionPantLogeoToCmbContra()
             v.findNavController().navigate(action)
         }

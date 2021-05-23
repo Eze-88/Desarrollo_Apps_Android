@@ -86,10 +86,18 @@
         android:id="@+id/bajaUsr"
         android:name="com.framus.Fragmentos.LogeoFragments.BajaUsr"
         android:label="fragment_baja_usr"
-        tools:layout="@layout/fragment_baja_usr" />
+        tools:layout="@layout/fragment_baja_usr" >
+        <action
+            android:id="@+id/action_bajaUsr_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
     <fragment
         android:id="@+id/cmbContra"
         android:name="com.framus.Fragmentos.LogeoFragments.CmbContra"
         android:label="fragment_cmb_contra"
-        tools:layout="@layout/fragment_cmb_contra" />
+        tools:layout="@layout/fragment_cmb_contra" >
+        <action
+            android:id="@+id/action_cmbContra_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
 </navigation>

@@ -10,10 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.usuarioDao
+import com.framus.Fragmentos.Pant_princDirections
 import com.framus.a08_settings.R
+import com.google.android.material.snackbar.Snackbar
 
 class CmbContra : Fragment() {
 
@@ -37,6 +40,8 @@ class CmbContra : Fragment() {
     //Variables la base de datos
     private var db: appDatabase? = null
     private var usuarioDao: usuarioDao? = null
+    //Bandera que indica si se encontró el usuario en la lista
+    var encontrado : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,18 +68,71 @@ class CmbContra : Fragment() {
         //Variables la base de datos
         db = appDatabase.getAppDataBase(v.context)
         usuarioDao = db?.usuarioDao()
+
+        //Boton de preferencias
+        prefes.setOnClickListener {
+            val action = CmbContraDirections.actionCmbContraToSettingsActivity()
+            v.findNavController().navigate(action)
+        }
+
+        return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         //Preferencias
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         //+++++Alteraciones segun las preferencias
         //Color de los botones
-        btn_contra.setBackgroundColor(Color.parseColor(prefs.getString("Botones","")))
+        btn_contra.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#0000FF")))
         //Color del fondo
         if (prefs.getBoolean("Fondo",false))
             root_layout.setBackgroundColor(Color.parseColor(getString(R.color.rojo)))
         else
             root_layout.setBackgroundColor(Color.parseColor(getString(R.color.black)))
 
-        return v
+        //Accion para la modificación de la contraseña
+        btn_contra.setOnClickListener {
+            encontrado = false
+//            if (casilla_usuario.length() > 0){
+//                if (casilla_contra.length() > 0){
+//                    userList = usuarioDao?.loadAllPersons() as MutableList<Persona>
+//                    for (cont in 0 until userList.size){
+//                        if (userList[cont].usuario.equals(casilla_usuario.text.toString()))
+//                            encontrado = true
+//                        if (encontrado) {
+//                            usuarioDao?.updatePerson(Persona(userList[cont].id,casilla_usuario.text.toString(),casilla_contra.text.toString()))
+//                            Snackbar.make(root_layout, "Modificacion exitosa"+" "+cont.toString(), Snackbar.LENGTH_SHORT).show()
+//                            break
+//                        }
+//                        if (cont == (userList.size - 1))
+//                            Snackbar.make(root_layout, "El usuario no existe", Snackbar.LENGTH_SHORT).show()
+//                    }
+//                }
+//                else
+//                    Snackbar.make(root_layout, "Ingrese una contraseña", Snackbar.LENGTH_SHORT).show()
+//            }
+//            else
+//                Snackbar.make(root_layout, "Ingrese el usuario a modificar", Snackbar.LENGTH_SHORT).show()
+            if (casilla_usuario.length()>0){
+                if (casilla_contra_v.length()>0){
+                    if (casilla_contra_n1.length()>0){
+                        if (casilla_contra_n2.length()>0){
+
+                        }
+                        else
+                            Snackbar.make(root_layout, "Ingrese la nuevamente la nueva contraseña", Snackbar.LENGTH_SHORT).show()
+                    }
+                    else
+                        Snackbar.make(root_layout, "Ingrese la nueva contraseña", Snackbar.LENGTH_SHORT).show()
+                }
+                else
+                    Snackbar.make(root_layout, "Ingrese la contraseña actual", Snackbar.LENGTH_SHORT).show()
+            }
+            else
+                Snackbar.make(root_layout, "Ingrese el usuario", Snackbar.LENGTH_SHORT).show()
+        }
     }
 }
