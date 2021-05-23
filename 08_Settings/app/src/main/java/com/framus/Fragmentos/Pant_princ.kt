@@ -1,11 +1,15 @@
 package com.framus.Fragmentos
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +19,10 @@ import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.discosDAO
 import com.framus.Entidades.Discos
 import com.framus.a08_settings.R
+import kotlinx.android.synthetic.main.fragment_pant_princ.*
+import kotlinx.android.synthetic.main.item_discos.view.*
+import java.lang.Byte.decode
+import java.lang.Integer.decode
 
 
 class Pant_princ : Fragment() {
@@ -69,6 +77,8 @@ class Pant_princ : Fragment() {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_pant_princ, container, false)
 
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
         recDiscos = v.findViewById(R.id.rec_discos)
 
         //Boton de modificacion de contraseña
@@ -93,6 +103,8 @@ class Pant_princ : Fragment() {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
+        btn_venta.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#42f5f2").toString()))
+
         btn_venta.setOnClickListener {
             val action = Pant_princDirections.actionPantPrincToVender()
             v.findNavController().navigate(action)
@@ -101,8 +113,16 @@ class Pant_princ : Fragment() {
         btnSettings.setOnClickListener {
             val action = Pant_princDirections.actionPantPrincToSettingsActivity()
             v.findNavController().navigate(action)
-
         }
+
+
+        val frame: ConstraintLayout = v.findViewById(R.id.frameLayout2)
+
+
+        if (prefs.getBoolean("Tamanio",true))
+            frame.setBackgroundColor(Color.parseColor("#000000"))
+        else
+            frame.setBackgroundColor(Color.parseColor("#ffcccc"))
     }
 
     fun onItemClick ( position : Int ) : Boolean {

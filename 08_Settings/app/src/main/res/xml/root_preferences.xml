@@ -13,7 +13,6 @@
 <!--            app:useSimpleSummaryProvider="true" />-->
 
         <ListPreference
-            app:defaultValue="Botones"
             app:entries="@array/boton_entries"
             app:entryValues="@array/boton_values"
             app:key="Botones"
@@ -22,14 +21,13 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Tema">
+    <PreferenceCategory app:title="Vista">
 
         <SwitchPreferenceCompat
-            app:key="Tema"
-            app:title="Tema oscuro" />
-<!--            app:summaryOff="@string/attachment_summary_off"-->
-<!--            app:summaryOn="@string/attachment_summary_on"-->
-<!--            />-->
+            app:key="Tamanio"
+            app:title="Tamaño de las caratulas"
+            app:summaryOff="Caratulas pequeñas"
+            app:summaryOn="Caratulas grandes" />
 
 <!--        <SwitchPreferenceCompat-->
 <!--            app:key="attachment"-->
