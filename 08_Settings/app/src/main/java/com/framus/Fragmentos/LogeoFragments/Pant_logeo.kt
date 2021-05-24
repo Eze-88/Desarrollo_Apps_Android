@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import com.framus.BaseDeDatos.usuarioDao
@@ -18,9 +19,6 @@ import com.google.android.material.snackbar.Snackbar
 class Pant_logeo : Fragment() {
 
     //+++++DEFINICIONES GLOBALES+++++
-    //Definición de las variables la base de datos
-    private var db: appDatabase? = null
-    private var usuarioDao: usuarioDao? = null
     //Definicion de la variable para referenciar la vista
     lateinit var v: View
     //Creo el boton de logeo
@@ -31,26 +29,23 @@ class Pant_logeo : Fragment() {
     lateinit var btn_baja: Button
     //Creo el boton de modificacion de contraseña
     lateinit var btn_contra: Button
-    //Creo la lista de usuarios
-    var Personas : MutableList<Persona> = mutableListOf()
-    //Bandera que indica si se encontró el usuario en la lista
-    var encontrado : Boolean = false
-    //Contador para recorrer la lista de usuarios
-    val cont: Int = 0
-    //Defino el snackbar para el ususario y la contraseña
-    lateinit var root_layout: ConstraintLayout
     //Casilla de ingreso de usuario
     lateinit var casilla_usuario: EditText
     //Casilla de ingreso de la contraseña
     lateinit var casilla_contra: EditText
-    //Generador del ID de usuario
-    var gen_id: Int = 0
+    //Defino el snackbar para el ususario y la contraseña
+    lateinit var root_layout: ConstraintLayout
+    //Imagen pulsable para las preferencias
+    lateinit var prefes: ImageView
+    //Definición de las variables la base de datos
+    private var db: appDatabase? = null
+    private var usuarioDao: usuarioDao? = null
     //Lista para las verificaciones
     lateinit var userList :MutableList<Persona>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    //Bandera que indica si se encontró el usuario en la lista
+    var encontrado : Boolean = false
+    //Generador del ID de usuario
+    var gen_id: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +65,8 @@ class Pant_logeo : Fragment() {
         btn_baja = v.findViewById(R.id.Baja)
         //Boton de modificacion de contraseña
         btn_contra = v.findViewById(R.id.Contrasenia)
+        //Imagen pulsable para las preferencias
+        prefes = v.findViewById(R.id.llave3)
         //Snackbar
         root_layout = v.findViewById(R.id.frameLayout)
         //Casilla usuario
@@ -80,6 +77,12 @@ class Pant_logeo : Fragment() {
         db = appDatabase.getAppDataBase(v.context)
         usuarioDao = db?.usuarioDao()
 
+        //Boton de preferencias
+        prefes.setOnClickListener {
+            val action = Pant_logeoDirections.actionPantLogeoToSettingsActivity()
+            v.findNavController().navigate(action)
+        }
+
         return v
     }
 
@@ -88,7 +91,6 @@ class Pant_logeo : Fragment() {
 
         //Acción del botón de ingreso con usuario existente
         btn_logeo.setOnClickListener {
-            //Me aseguro que la bandera está desactivada
             encontrado = false
             if (casilla_usuario.length() > 0) {
                 if (casilla_contra.length() > 0) {
@@ -145,31 +147,8 @@ class Pant_logeo : Fragment() {
 
         //Accion del boton de baja de usuario
         btn_baja.setOnClickListener {
-            encontrado = false
-            if (casilla_usuario.length() > 0) {
-                if (casilla_contra.length() > 0) {
-                    userList = usuarioDao?.loadAllPersons() as MutableList<Persona>
-                    for (cont in 0 until userList.size) {
-                        if (userList[cont].usuario.equals(casilla_usuario.text.toString()))
-                            encontrado = true
-                        if (encontrado) {
-                            if (userList[cont].contrasenia.equals(casilla_contra.text.toString())) {
-                                usuarioDao?.delete(Persona(userList[cont].id,"",""))
-                                Snackbar.make(root_layout, "Usuario eliminado", Snackbar.LENGTH_SHORT).show()
-                                break
-                            }
-                            else {
-                                Snackbar.make(root_layout, "Contraseña incorrecta", Snackbar.LENGTH_SHORT).show()
-                                break
-                            }
-                        }
-                        if (cont == (userList.size - 1))
-                            Snackbar.make(root_layout, "Usuario no registrado", Snackbar.LENGTH_SHORT).show()
-                    }
-                } else
-                    Snackbar.make(root_layout, "Contraseña en blanco", Snackbar.LENGTH_SHORT).show()
-            } else
-                Snackbar.make(root_layout, "Ingrese el usuario", Snackbar.LENGTH_SHORT).show()
+            val action = Pant_logeoDirections.actionPantLogeoToBajaUsr()
+            v.findNavController().navigate(action)
         }
 
         //Accion para la modificación de la contraseña
