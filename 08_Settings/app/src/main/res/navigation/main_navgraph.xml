@@ -48,9 +48,6 @@
         android:name="com.framus.Fragmentos.Detalles_A"
         android:label="fragment_detalles__a"
         tools:layout="@layout/fragment_detalles__a" >
-        <action
-            android:id="@+id/action_detalles_A_to_correccion"
-            app:destination="@id/correccion" />
         <argument
             android:name="id"
             app:argType="integer" />
@@ -63,6 +60,9 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_correccion_to_pant_princ"
+            app:destination="@id/pant_princ" />
     </fragment>
     <fragment
         android:id="@+id/detalles_B"
@@ -77,6 +77,12 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_contenedor_detalles_to_correccion2"
+            app:destination="@id/correccion" />
+        <action
+            android:id="@+id/action_contenedor_detalles_to_pant_princ"
+            app:destination="@id/pant_princ" />
     </fragment>
     <activity
         android:id="@+id/settingsActivity"

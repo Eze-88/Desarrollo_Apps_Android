@@ -1,5 +1,6 @@
 package com.framus.Fragmentos.LogeoFragments
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
+import androidx.preference.PreferenceManager
 import com.framus.BaseDeDatos.usuarioDao
 import com.framus.BaseDeDatos.appDatabase
 import com.framus.Entidades.Persona
@@ -33,10 +35,10 @@ class Pant_logeo : Fragment() {
     lateinit var casilla_usuario: EditText
     //Casilla de ingreso de la contraseña
     lateinit var casilla_contra: EditText
-    //Defino el snackbar para el ususario y la contraseña
-    lateinit var root_layout: ConstraintLayout
     //Imagen pulsable para las preferencias
     lateinit var prefes: ImageView
+    //El frame
+    lateinit var root_layout: ConstraintLayout
     //Definición de las variables la base de datos
     private var db: appDatabase? = null
     private var usuarioDao: usuarioDao? = null
@@ -65,15 +67,15 @@ class Pant_logeo : Fragment() {
         btn_baja = v.findViewById(R.id.Baja)
         //Boton de modificacion de contraseña
         btn_contra = v.findViewById(R.id.Contrasenia)
-        //Imagen pulsable para las preferencias
-        prefes = v.findViewById(R.id.llave3)
-        //Snackbar
-        root_layout = v.findViewById(R.id.frameLayout)
         //Casilla usuario
         casilla_usuario= v.findViewById(R.id.casilla_usuario)
         //Casilla contraseña
         casilla_contra = v.findViewById(R.id.casilla_contra)
-
+        //Imagen pulsable para las preferencias
+        prefes = v.findViewById(R.id.llave3)
+        //El frame
+        root_layout = v.findViewById(R.id.frameLayout)
+        //Asociacion de las variables la base de datos
         db = appDatabase.getAppDataBase(v.context)
         usuarioDao = db?.usuarioDao()
 
@@ -88,6 +90,19 @@ class Pant_logeo : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        //Preferencias
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+        //+++++Alteraciones segun las preferencias
+        //Color de los botones
+        btn_logeo.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#0000FF")))
+        btn_signup.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#0000FF")))
+        //Color del fondo
+        if (prefs.getBoolean("Fondo",false))
+            root_layout.setBackgroundColor(Color.parseColor(getString(R.color.rojo)))
+        else
+            root_layout.setBackgroundColor(Color.parseColor(getString(R.color.black)))
 
         //Acción del botón de ingreso con usuario existente
         btn_logeo.setOnClickListener {
