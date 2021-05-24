@@ -42,7 +42,11 @@
         android:id="@+id/vender"
         android:name="com.framus.Fragmentos.Vender"
         android:label="fragment_vender"
-        tools:layout="@layout/fragment_vender" />
+        tools:layout="@layout/fragment_vender" >
+        <action
+            android:id="@+id/action_vender_to_pant_princ"
+            app:destination="@id/pant_princ" />
+    </fragment>
     <fragment
         android:id="@+id/detalles_A"
         android:name="com.framus.Fragmentos.Detalles_A"
