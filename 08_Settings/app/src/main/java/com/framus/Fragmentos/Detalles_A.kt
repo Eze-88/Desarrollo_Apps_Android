@@ -51,6 +51,7 @@ class Detalles_A : Fragment() {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_detalles__a, container, false)
 
+        //+++++ASOCIACIONES+++++
         //Cuadros de texto
         text_banda = v.findViewById(R.id.txt_banda_d)
         text_titulo = v.findViewById(R.id.txt_titulo_d)
