@@ -1,4 +1,4 @@
-package com.framus.a08_settings
+package com.framus.a09_firebase
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

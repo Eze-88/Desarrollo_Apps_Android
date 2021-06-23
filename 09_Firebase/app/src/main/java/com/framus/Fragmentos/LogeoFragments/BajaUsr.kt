@@ -15,7 +15,7 @@ import androidx.preference.PreferenceManager
 import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.usuarioDao
 import com.framus.Entidades.Persona
-import com.framus.a08_settings.R
+import com.framus.a09_firebase.R
 import com.google.android.material.snackbar.Snackbar
 
 class BajaUsr : Fragment() {

@@ -1,4 +1,4 @@
-package com.framus.a08_settings
+package com.framus.a09_firebase
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
