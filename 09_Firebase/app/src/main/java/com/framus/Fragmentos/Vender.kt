@@ -64,7 +64,7 @@ class Vender : Fragment() {
 
         //+++++Alteraciones segun las preferencias
         //Color de los botones
-        btn_conf.setBackgroundColor(Color.parseColor(prefs.getString("Botones","")))
+        btn_conf.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#0000FF")))
         //Color del fondo
         if (prefs.getBoolean("Fondo",false))
             root_layout.setBackgroundColor(Color.parseColor(getString(R.color.rojo)))

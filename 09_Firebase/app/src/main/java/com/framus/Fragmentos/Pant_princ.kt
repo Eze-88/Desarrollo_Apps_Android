@@ -2,6 +2,7 @@ package com.framus.Fragmentos
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -52,15 +53,15 @@ class Pant_princ : Fragment() {
 
         //+++++PRE-CARGA DE LA LISTA de discos+++++
         var gen_id: Int = 0
-        discosDAO?.insertPerson(Discos(gen_id,"The Black Keys","El Camino","2011","Garage Rock","https://images-na.ssl-images-amazon.com/images/I/810GnasrfjL._SX466_.jpg"))
-        gen_id+=1
-        discosDAO?.insertPerson(Discos(gen_id,"Pearl Jam","Vs","1993","Grunge","https://img.discogs.com/XaZw9d4nux7zQCwVMp3USt2F6QY=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1820450-1245546969.jpeg.jpg"))
-        gen_id+=1
-        discosDAO?.insertPerson(Discos(gen_id,"Deftones","Deftones","2003","Metal Alternativo","https://media.pitchfork.com/photos/5929a8fa5e6ef95969321323/1:1/w_320/b3e6b384.jpg"))
-        gen_id+=1
-        discosDAO?.insertPerson(Discos(gen_id,"The Offspring","Ignition","1992","Skate Punk","https://img.discogs.com/k3QfPGvxwGt3G-k5RofPajdbnko=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-4892277-1458203046-3312.jpeg.jpg"))
-        gen_id+=1
-        discosDAO?.insertPerson(Discos(gen_id,"Dinosaur Jr","I Bet On Sky","2012","Indie Rock","https://upload.wikimedia.org/wikipedia/en/c/c4/I_Bet_on_Sky.jpeg"))
+//        discosDAO?.insertPerson(Discos(gen_id,"The Black Keys","El Camino","2011","Garage Rock","https://images-na.ssl-images-amazon.com/images/I/810GnasrfjL._SX466_.jpg"))
+//        gen_id+=1
+//        discosDAO?.insertPerson(Discos(gen_id,"Pearl Jam","Vs","1993","Grunge","https://img.discogs.com/XaZw9d4nux7zQCwVMp3USt2F6QY=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1820450-1245546969.jpeg.jpg"))
+//        gen_id+=1
+//        discosDAO?.insertPerson(Discos(gen_id,"Deftones","Deftones","2003","Metal Alternativo","https://media.pitchfork.com/photos/5929a8fa5e6ef95969321323/1:1/w_320/b3e6b384.jpg"))
+//        gen_id+=1
+//        discosDAO?.insertPerson(Discos(gen_id,"The Offspring","Ignition","1992","Skate Punk","https://img.discogs.com/k3QfPGvxwGt3G-k5RofPajdbnko=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-4892277-1458203046-3312.jpeg.jpg"))
+//        gen_id+=1
+//        discosDAO?.insertPerson(Discos(gen_id,"Dinosaur Jr","I Bet On Sky","2012","Indie Rock","https://upload.wikimedia.org/wikipedia/en/c/c4/I_Bet_on_Sky.jpeg"))
     }
 
     override fun onCreateView(
@@ -99,7 +100,7 @@ class Pant_princ : Fragment() {
 
         //+++++Alteraciones segun las preferencias
         //Color de los botones
-        btn_venta.setBackgroundColor(Color.parseColor(prefs.getString("Botones","")))
+        btn_venta.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#0000FF")))
         //Color del fondo
         if (prefs.getBoolean("Fondo",false))
             root_layout.setBackgroundColor(Color.parseColor(getString(R.color.rojo)))

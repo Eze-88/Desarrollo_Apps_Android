@@ -84,8 +84,8 @@ class Detalles_A : Fragment() {
 
         //+++++Alteraciones segun las preferencias
         //Color de los botones
-        btn_mod.setBackgroundColor(Color.parseColor(prefs.getString("Botones","")))
-        btn_compra.setBackgroundColor(Color.parseColor(prefs.getString("Botones","")))
+        btn_mod.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#0000FF")))
+        btn_compra.setBackgroundColor(Color.parseColor(prefs.getString("Botones","#0000FF")))
         //Color del fondo
         if (prefs.getBoolean("Fondo",false))
             root_layout.setBackgroundColor(Color.parseColor(getString(R.color.rojo)))
