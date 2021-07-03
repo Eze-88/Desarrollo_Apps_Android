@@ -112,9 +112,10 @@ class Detalles_A : Fragment() {
 
         //Accion de baja de la tabla, comprando un disco
         btn_compra.setOnClickListener {
-            discosDAO?.delete(Discos(id, "", "", "", "", ""))
-            val action = Contenedor_detallesDirections.actionContenedorDetallesToPantPrinc()
-            v.findNavController().navigate(action)
+            //discosDAO?.delete(Discos(id, "", "", "", "", ""))
+            bd.collection("albums").document(identificador.toString()).delete()
+            //val action = Contenedor_detallesDirections.actionContenedorDetallesToPantPrinc()
+            //v.findNavController().navigate(action)
         }
 
         //Accion de modificacion de la tabla, corrigiendo la info de un disco

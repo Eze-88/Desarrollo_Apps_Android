@@ -2,6 +2,7 @@ package com.framus.Fragmentos
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.discosDAO
 import com.framus.Entidades.Discos
 import com.framus.a09_firebase.R
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 
 class Correccion : Fragment() {
 
@@ -39,9 +42,12 @@ class Correccion : Fragment() {
     private var db: appDatabase? = null
     private var discosDAO: discosDAO? = null
     //Lista para las verificaciones
-    var cd:  MutableList<Discos> = mutableListOf()
+    //var cd:  MutableList<Discos> = mutableListOf()
     //Variable para determinar la posicion en la lista
     var pos: Int = 0
+    lateinit var cd: Discos
+    //Base de datos online
+    private val bd = FirebaseFirestore.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,14 +105,27 @@ class Correccion : Fragment() {
         var genero: String
         var cover: String
 
-        cd = discosDAO?.loadAllPersons() as MutableList<Discos>
+        //cd = discosDAO?.loadAllPersons() as MutableList<Discos>
 
         //Determinacion de la posicion del disco a corregir
         var id: Int = CorreccionArgs.fromBundle(requireArguments()).id
-        for ( i in 0 until cd.size){
-            if (cd[i].id == id){
-                pos = i
-                break
+
+//        for ( i in 0 until cd.size){
+//            if (cd[i].id == id){
+//                pos = i
+//                break
+//            }
+//        }
+
+        bd.collection("albums").document(id.toString()).get().addOnSuccessListener { dataSnapshot ->
+            if (dataSnapshot != null){
+                val cd_leido = dataSnapshot.toObject<Discos>()
+                if (cd_leido != null) {
+                    Log.d("PERRO","Exito")
+                    cd = cd_leido
+                }
+            } else {
+                Log.d("PERRO", "No existe el documento")
             }
         }
 
@@ -116,31 +135,34 @@ class Correccion : Fragment() {
             if (casilla_banda.length() > 0)
                 banda = casilla_banda.text.toString()
             else
-                banda = cd[pos].banda
+                banda = cd.banda
 
             if (casilla_titulo.length() > 0)
                  titulo = casilla_titulo.text.toString()
             else
-                titulo = cd[pos].titulo
+                titulo = cd.titulo
 
             if (casilla_anio.length() > 0)
                 anio = casilla_anio.text.toString()
             else
-                anio = cd[pos].anio
+                anio = cd.anio
 
             if (casilla_genero.length() > 0)
                 genero = casilla_genero.text.toString()
             else
-                genero = cd[pos].genero
+                genero = cd.genero
 
             if (casilla_cover.length() > 0)
                 cover = casilla_cover.text.toString()
             else
-                cover = cd[pos].caratula
+                cover = cd.caratula
 
-            discosDAO?.updatePerson(Discos(id,banda,titulo,anio,genero,cover))
-            val action = CorreccionDirections.actionCorreccionToPantPrinc()
-            v.findNavController().navigate(action)
+            //discosDAO?.updatePerson(Discos(id,banda,titulo,anio,genero,cover))
+
+            bd.collection("albums").document(id.toString()).set(Discos(id,banda,titulo,anio,genero,cover))
+
+            //val action = CorreccionDirections.actionCorreccionToPantPrinc()
+            //v.findNavController().navigate(action)
         }
     }
 }
