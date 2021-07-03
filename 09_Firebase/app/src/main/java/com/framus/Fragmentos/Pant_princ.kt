@@ -74,8 +74,7 @@ class Pant_princ : Fragment() {
 //            }
 //        }
         //BORRO
-        //bd.collection("albums").document("77").delete()
-
+        //bd.collection("albums").document("8289").delete()
     }
 
     override fun onCreateView(
@@ -107,9 +106,8 @@ class Pant_princ : Fragment() {
         recDiscos.layoutManager = linearLayoutManager
 
         // Leo la BD y la cargo en una lista para pasársela al Recycled View
-        //discos = discosDAO?.loadAllPersons() as MutableList<Discos>
         bd.collection("albums")
-            .limit(20)
+            .limit(30)
             .get()
             .addOnSuccessListener { snapshot ->
                 if (snapshot != null) {

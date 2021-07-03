@@ -15,6 +15,7 @@ import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.discosDAO
 import com.framus.Entidades.Discos
 import com.framus.a09_firebase.R
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Vender : Fragment() {
 
@@ -36,6 +37,8 @@ class Vender : Fragment() {
     private var discosDAO: discosDAO? = null
     //Generador del ID de usuario
     var gen_id: Int = 0
+    //Base de datos online
+    private val bd = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,16 +82,18 @@ class Vender : Fragment() {
 
         btn_conf.setOnClickListener {
             gen_id = (5..9999).random()
-            discosDAO?.insertPerson(Discos(
+            val cd = Discos(
                 gen_id,
                 casilla_banda.text.toString(),
                 casilla_titulo.text.toString(),
                 casilla_anio.text.toString(),
                 casilla_genero.text.toString(),
                 "https://static.wikia.nocookie.net/temonpe/images/c/cd/Cd.gif/revision/latest?cb=20100930214539&path-prefix=es"
-            ))
-            val action = VenderDirections.actionVenderToPantPrinc()
-            v.findNavController().navigate(action)
+            )
+            bd.collection("albums").document(cd.id.toString()).set(cd)
+
+            //val action = VenderDirections.actionVenderToPantPrinc()
+            //v.findNavController().navigate(action)
         }
     }
 }
