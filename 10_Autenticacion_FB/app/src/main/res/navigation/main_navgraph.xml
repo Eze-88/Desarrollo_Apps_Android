@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navgraph"
+    app:startDestination="@id/pant_logeo">
+
+    <fragment
+        android:id="@+id/pant_logeo"
+        android:name="com.framus.Fragmentos.LogeoFragments.Pant_logeo"
+        android:label="fragment_pant_logeo"
+        tools:layout="@layout/fragment_pant_logeo" >
+        <action
+            android:id="@+id/action_pant_logeo_to_pant_princ"
+            app:destination="@id/pant_princ" />
+        <action
+            android:id="@+id/action_pant_logeo_to_bajaUsr"
+            app:destination="@id/bajaUsr" />
+        <action
+            android:id="@+id/action_pant_logeo_to_cmbContra"
+            app:destination="@id/cmbContra" />
+        <action
+            android:id="@+id/action_pant_logeo_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/pant_princ"
+        android:name="com.framus.Fragmentos.Pant_princ"
+        android:label="fragment_pant_princ"
+        tools:layout="@layout/fragment_pant_princ" >
+        <action
+            android:id="@+id/action_pant_princ_to_vender"
+            app:destination="@id/vender" />
+        <action
+            android:id="@+id/action_pant_princ_to_contenedor_detalles"
+            app:destination="@id/contenedor_detalles" />
+        <action
+            android:id="@+id/action_pant_princ_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/vender"
+        android:name="com.framus.Fragmentos.Vender"
+        android:label="fragment_vender"
+        tools:layout="@layout/fragment_vender" >
+        <action
+            android:id="@+id/action_vender_to_pant_princ"
+            app:destination="@id/pant_princ" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalles_A"
+        android:name="com.framus.Fragmentos.Detalles_A"
+        android:label="fragment_detalles__a"
+        tools:layout="@layout/fragment_detalles__a" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/correccion"
+        android:name="com.framus.Fragmentos.Correccion"
+        android:label="fragment_correccion"
+        tools:layout="@layout/fragment_correccion" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_correccion_to_pant_princ"
+            app:destination="@id/pant_princ" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalles_B"
+        android:name="com.framus.Fragmentos.Detalles_B"
+        android:label="fragment_detalles__b"
+        tools:layout="@layout/fragment_detalles__b" />
+    <fragment
+        android:id="@+id/contenedor_detalles"
+        android:name="com.framus.Fragmentos.Contenedor_detalles"
+        android:label="fragment_contenedor_detalles"
+        tools:layout="@layout/fragment_contenedor_detalles" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_contenedor_detalles_to_correccion2"
+            app:destination="@id/correccion" />
+        <action
+            android:id="@+id/action_contenedor_detalles_to_pant_princ"
+            app:destination="@id/pant_princ" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.framus.a09_firebase.SettingsActivity"
+        android:label="SettingsActivity" />
+    <fragment
+        android:id="@+id/bajaUsr"
+        android:name="com.framus.Fragmentos.LogeoFragments.BajaUsr"
+        android:label="fragment_baja_usr"
+        tools:layout="@layout/fragment_baja_usr" >
+        <action
+            android:id="@+id/action_bajaUsr_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/cmbContra"
+        android:name="com.framus.Fragmentos.LogeoFragments.CmbContra"
+        android:label="fragment_cmb_contra"
+        tools:layout="@layout/fragment_cmb_contra" >
+        <action
+            android:id="@+id/action_cmbContra_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+</navigation>
