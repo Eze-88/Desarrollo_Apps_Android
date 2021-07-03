@@ -23,6 +23,10 @@ import com.framus.a09_firebase.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.android.synthetic.main.item_discos.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 
 class Pant_princ : Fragment() {
@@ -100,17 +104,13 @@ class Pant_princ : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        //+++++RECYCLED VIEW+++++
-        recDiscos.setHasFixedSize(true)
-        linearLayoutManager = LinearLayoutManager(context)
-        recDiscos.layoutManager = linearLayoutManager
-
-        // Leo la BD y la cargo en una lista para pasársela al Recycled View
+        //Leo la BD y la cargo en una lista para pasársela al Recycled View
         bd.collection("albums")
             .limit(30)
             .get()
             .addOnSuccessListener { snapshot ->
                 if (snapshot != null) {
+                    discos.clear()
                     for (disco in snapshot) {
                         discos.add(disco.toObject())
                     }
@@ -120,6 +120,10 @@ class Pant_princ : Fragment() {
                 Log.w(TAG, "Error getting documents: ", exception)
             }
 
+        //+++++RECYCLED VIEW+++++
+        recDiscos.setHasFixedSize(true)
+        linearLayoutManager = LinearLayoutManager(context)
+        recDiscos.layoutManager = linearLayoutManager
         discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
         recDiscos.adapter = discosListAdapter
 

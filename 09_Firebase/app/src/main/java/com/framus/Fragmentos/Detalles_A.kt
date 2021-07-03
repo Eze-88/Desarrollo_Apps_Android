@@ -2,6 +2,7 @@ package com.framus.Fragmentos
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.discosDAO
 import com.framus.Entidades.Discos
 import com.framus.a09_firebase.R
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 
 class Detalles_A : Fragment() {
 
@@ -38,7 +41,9 @@ class Detalles_A : Fragment() {
     //Variable donde se carga el argumento del fragmento
     var pos: Int = 0
     //Variable auxiliar de busqueda
-    var cd:  MutableList<Discos> = mutableListOf()
+    //var cd:  MutableList<Discos> = mutableListOf()
+    //Base de datos online
+    private val bd = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,15 +72,19 @@ class Detalles_A : Fragment() {
         db = appDatabase.getAppDataBase(v.context)
         discosDAO = db?.discosDAO()
 
-        //Variable auxiliar para cargar el ID del disco a comprar o modificar
-        val id: Int = identificador
-
-        //Identifico el disco a mostrar
-        cd = discosDAO?.loadAllPersons() as MutableList<Discos>
-        for ( i in 0 until cd.size){
-            if (cd[i].id == id){
-                pos = i
-                break
+        bd.collection("albums").document(identificador.toString()).get().addOnSuccessListener { dataSnapshot ->
+            if (dataSnapshot != null){
+                val cd = dataSnapshot.toObject<Discos>()
+                if (cd != null) {
+                    Log.d("PERRO","Exito")
+                    //Se muestra toda la info del disco
+                    text_banda.text = "Banda: " + cd.banda
+                    text_titulo.text = "Título: " + cd.titulo
+                    text_anio.text = "Año: " + cd.anio
+                    text_genero.text = "Género: " + cd.genero
+                }
+            } else {
+                Log.d("PERRO", "No existe el documento")
             }
         }
 
@@ -91,12 +100,6 @@ class Detalles_A : Fragment() {
             root_layout.setBackgroundColor(Color.parseColor(getString(R.color.rojo)))
         else
             root_layout.setBackgroundColor(Color.parseColor(getString(R.color.black)))
-
-        //Se muestra toda la info del disco
-        text_banda.text = "Banda: " + cd[pos].banda
-        text_titulo.text = "Título: " + cd[pos].titulo
-        text_anio.text = "Año: " + cd[pos].anio
-        text_genero.text = "Género: " + cd[pos].genero
 
         return v
     }
