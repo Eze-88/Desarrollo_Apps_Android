@@ -2,6 +2,7 @@ package com.framus.Fragmentos.LogeoFragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,9 @@ import com.framus.BaseDeDatos.usuarioDao
 import com.framus.Entidades.Persona
 import com.framus.a09_firebase.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class CmbContra : Fragment() {
 
@@ -44,6 +48,7 @@ class CmbContra : Fragment() {
     var encontrado : Boolean = false
     //Lista para las verificaciones
     lateinit var userList :MutableList<Persona>
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,6 +88,9 @@ class CmbContra : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        // Initialize Firebase Auth
+        auth = Firebase.auth
+
         //Preferencias
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
@@ -97,46 +105,31 @@ class CmbContra : Fragment() {
 
         //Accion para la modificación de la contraseña
         btn_contra.setOnClickListener {
-            encontrado = false
-            if (casilla_usuario.length()>0){
-                if (casilla_contra_v.length()>0){
-                    if (casilla_contra_n1.length()>0){
-                        if (casilla_contra_n2.length()>0){
-                            userList = usuarioDao?.loadAllPersons() as MutableList<Persona>
-                            for (cont in 0 until userList.size){
-                                if (userList[cont].usuario.equals(casilla_usuario.text.toString()))
-                                    encontrado = true
-                                if (encontrado){
-                                    if (userList[cont].contrasenia.equals(casilla_contra_v.text.toString())){
-                                        if (casilla_contra_n1.text.toString().equals(casilla_contra_n2.text.toString())){
-                                            usuarioDao?.updatePerson(Persona(userList[cont].id,casilla_usuario.text.toString(),casilla_contra_n1.text.toString()))
-                                            Snackbar.make(root_layout, "Modificacion exitosa", Snackbar.LENGTH_SHORT).show()
-                                            break
+            if (casilla_usuario.length() > 0) {
+                if (casilla_contra_v.length() > 0) {
+                    auth.signInWithEmailAndPassword(casilla_usuario.text.toString(), casilla_contra_v.text.toString())
+                        .addOnCompleteListener(requireActivity()) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                val user = Firebase.auth.currentUser
+                                val newPassword = casilla_contra_n1.text.toString()
+                                user!!.updatePassword(newPassword)
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            Log.d("PERRO", "User password updated.")
                                         }
-                                        else {
-                                            Snackbar.make(root_layout, "La contraseñas nuevas no coinciden", Snackbar.LENGTH_SHORT).show()
-                                            break
-                                            }
                                     }
-                                    else {
-                                        Snackbar.make(root_layout, "Contraseña incorrecta", Snackbar.LENGTH_SHORT).show()
-                                        break
-                                        }
-                                }
-                                if (cont == (userList.size - 1))
-                                    Snackbar.make(root_layout, "El usuario no existe", Snackbar.LENGTH_SHORT).show()
+                                Log.d("PERRO", "signInWithEmail:success")
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("PERRO", "signInWithEmail:failure", task.exception)
+                                Snackbar.make(root_layout, task.exception.toString(), Snackbar.LENGTH_SHORT).show()
+
                             }
                         }
-                        else
-                            Snackbar.make(root_layout, "Ingrese la nuevamente la nueva contraseña", Snackbar.LENGTH_SHORT).show()
-                    }
-                    else
-                        Snackbar.make(root_layout, "Ingrese la nueva contraseña", Snackbar.LENGTH_SHORT).show()
-                }
-                else
-                    Snackbar.make(root_layout, "Ingrese la contraseña actual", Snackbar.LENGTH_SHORT).show()
-            }
-            else
+                } else
+                    Snackbar.make(root_layout, "Contraseña en blanco", Snackbar.LENGTH_SHORT).show()
+            } else
                 Snackbar.make(root_layout, "Ingrese el usuario", Snackbar.LENGTH_SHORT).show()
         }
     }
