@@ -1,4 +1,4 @@
-package com.framus.a09_firebase
+package com.framus.a10_auth_fb
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

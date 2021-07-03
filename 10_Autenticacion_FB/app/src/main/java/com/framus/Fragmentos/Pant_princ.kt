@@ -19,14 +19,9 @@ import com.framus.Adaptadores.AdaptadorDiscos
 import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.discosDAO
 import com.framus.Entidades.Discos
-import com.framus.a09_firebase.R
+import com.framus.a10_auth_fb.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
-import kotlinx.android.synthetic.main.item_discos.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 
 class Pant_princ : Fragment() {

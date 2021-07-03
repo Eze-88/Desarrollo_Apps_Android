@@ -90,7 +90,7 @@
     </fragment>
     <activity
         android:id="@+id/settingsActivity"
-        android:name="com.framus.a09_firebase.SettingsActivity"
+        android:name="com.framus.a10_auth_fb.SettingsActivity"
         android:label="SettingsActivity" />
     <fragment
         android:id="@+id/bajaUsr"

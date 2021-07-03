@@ -1,4 +1,4 @@
-package com.framus.a09_firebase
+package com.framus.a10_auth_fb
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

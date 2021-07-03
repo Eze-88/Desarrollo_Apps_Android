@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.framus.a09_firebase"
+        applicationId "com.framus.a10_auth_fb"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
