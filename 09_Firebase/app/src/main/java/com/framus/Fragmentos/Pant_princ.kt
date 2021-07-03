@@ -20,6 +20,7 @@ import com.framus.BaseDeDatos.discosDAO
 import com.framus.Entidades.Discos
 import com.framus.a09_firebase.R
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.android.synthetic.main.item_discos.*
 
 
@@ -47,6 +48,8 @@ class Pant_princ : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     //Base de datos online
     private val bd = FirebaseFirestore.getInstance()
+    //Generador del ID de usuario
+    var gen_id: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,20 +60,22 @@ class Pant_princ : Fragment() {
 
 
         //Base de datos Firestore
+        //ESCRIBO
         //val cd: Discos = Discos(77,"The Black Keys","El Camino","2011","Garage Rock","https://images-na.ssl-images-amazon.com/images/I/810GnasrfjL._SX466_.jpg")
         //bd.collection("albums").document(cd.id.toString()).set(cd)
-
-        //+++++PRE-CARGA DE LA LISTA de discos+++++
-        var gen_id: Int = 0
-//        discosDAO?.insertPerson(Discos(gen_id,"The Black Keys","El Camino","2011","Garage Rock","https://images-na.ssl-images-amazon.com/images/I/810GnasrfjL._SX466_.jpg"))
-//        gen_id+=1
-//        discosDAO?.insertPerson(Discos(gen_id,"Pearl Jam","Vs","1993","Grunge","https://img.discogs.com/XaZw9d4nux7zQCwVMp3USt2F6QY=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1820450-1245546969.jpeg.jpg"))
-//        gen_id+=1
-//        discosDAO?.insertPerson(Discos(gen_id,"Deftones","Deftones","2003","Metal Alternativo","https://media.pitchfork.com/photos/5929a8fa5e6ef95969321323/1:1/w_320/b3e6b384.jpg"))
-//        gen_id+=1
-//        discosDAO?.insertPerson(Discos(gen_id,"The Offspring","Ignition","1992","Skate Punk","https://img.discogs.com/k3QfPGvxwGt3G-k5RofPajdbnko=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-4892277-1458203046-3312.jpeg.jpg"))
-//        gen_id+=1
-//        discosDAO?.insertPerson(Discos(gen_id,"Dinosaur Jr","I Bet On Sky","2012","Indie Rock","https://upload.wikimedia.org/wikipedia/en/c/c4/I_Bet_on_Sky.jpeg"))
+        //LEO
+//        bd.collection("albums").document("77").get().addOnSuccessListener { dataSnapshot ->
+//            if (dataSnapshot != null){
+//                val cd = dataSnapshot.toObject<Discos>()
+//                if (cd != null) {
+//                    Log.d("PERRO",cd.banda)
+//                }
+//            } else {
+//                Log.d("PERRO", "No existe el documento")
+//            }
+//        }
+        //BORRO
+        //bd.collection("albums").document("77").delete()
     }
 
     override fun onCreateView(

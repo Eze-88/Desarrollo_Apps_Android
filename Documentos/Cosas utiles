@@ -1,0 +1,18 @@
+        //+++++PRE-CARGA DE LA LISTA de discos+++++
+        gen_id = (5..9999).random()
+        var cd: Discos = Discos(gen_id,"The Black Keys","El Camino","2011","Garage Rock","https://images-na.ssl-images-amazon.com/images/I/810GnasrfjL._SX466_.jpg")
+        bd.collection("albums").document(cd.id.toString()).set(cd)
+        gen_id = (5..9999).random()
+        cd = Discos(gen_id,"Pearl Jam","Vs","1993","Grunge","https://img.discogs.com/XaZw9d4nux7zQCwVMp3USt2F6QY=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1820450-1245546969.jpeg.jpg")
+        bd.collection("albums").document(cd.id.toString()).set(cd)
+        gen_id = (5..9999).random()
+        cd = Discos(gen_id,"Deftones","Deftones","2003","Metal Alternativo","https://media.pitchfork.com/photos/5929a8fa5e6ef95969321323/1:1/w_320/b3e6b384.jpg")
+        bd.collection("albums").document(cd.id.toString()).set(cd)
+        gen_id = (5..9999).random()
+        cd = Discos(gen_id,"The Offspring","Ignition","1992","Skate Punk","https://img.discogs.com/k3QfPGvxwGt3G-k5RofPajdbnko=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-4892277-1458203046-3312.jpeg.jpg")
+        bd.collection("albums").document(cd.id.toString()).set(cd)
+        gen_id = (5..9999).random()
+        cd = Discos(gen_id,"Dinosaur Jr","I Bet On Sky","2012","Indie Rock","https://upload.wikimedia.org/wikipedia/en/c/c4/I_Bet_on_Sky.jpeg")
+        bd.collection("albums").document(cd.id.toString()).set(cd)
+
+

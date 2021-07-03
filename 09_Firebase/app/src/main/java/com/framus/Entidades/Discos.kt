@@ -26,6 +26,8 @@ class Discos (id: Int, banda: String, titulo: String, anio: String, genero: Stri
     @ColumnInfo(name = "caratula")
     var caratula: String
 
+    constructor() : this(0,"","","","","")
+
     //Tomo los parámetros recibidos y se los asigno a los atributos
     init {
         this.id = id
