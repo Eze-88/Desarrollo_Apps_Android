@@ -1,5 +1,6 @@
 package com.framus.Fragmentos
 
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -48,8 +49,6 @@ class Pant_princ : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     //Base de datos online
     private val bd = FirebaseFirestore.getInstance()
-    //Generador del ID de usuario
-    var gen_id: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +75,7 @@ class Pant_princ : Fragment() {
 //        }
         //BORRO
         //bd.collection("albums").document("77").delete()
+
     }
 
     override fun onCreateView(
@@ -105,7 +105,23 @@ class Pant_princ : Fragment() {
         recDiscos.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recDiscos.layoutManager = linearLayoutManager
-        discos = discosDAO?.loadAllPersons() as MutableList<Discos>
+
+        // Leo la BD y la cargo en una lista para pasársela al Recycled View
+        //discos = discosDAO?.loadAllPersons() as MutableList<Discos>
+        bd.collection("albums")
+            .limit(20)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot != null) {
+                    for (disco in snapshot) {
+                        discos.add(disco.toObject())
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+
         discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
         recDiscos.adapter = discosListAdapter
 
