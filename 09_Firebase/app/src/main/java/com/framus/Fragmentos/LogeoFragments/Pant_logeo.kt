@@ -1,7 +1,9 @@
 package com.framus.Fragmentos.LogeoFragments
 
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
@@ -17,6 +20,9 @@ import com.framus.BaseDeDatos.appDatabase
 import com.framus.Entidades.Persona
 import com.framus.a09_firebase.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class Pant_logeo : Fragment() {
 
@@ -48,6 +54,8 @@ class Pant_logeo : Fragment() {
     var encontrado : Boolean = false
     //Generador del ID de usuario
     var gen_id: Int = 0
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,6 +99,58 @@ class Pant_logeo : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        // Initialize Firebase Auth
+        auth = Firebase.auth
+
+        //Alta usuario
+        //Solo correos
+        //Verifica que la contraseña sea de por lo menos 6 caracteres
+        //Verifica si el usuario ya existe
+//        auth.createUserWithEmailAndPassword("ezequielap@gmail.com", "ezeeze")
+//            .addOnCompleteListener(requireActivity()) { task ->
+//                if (task.isSuccessful) {
+//                    // Sign in success, update UI with the signed-in user's information
+//                } else {
+//                    // If sign in fails, display a message to the user.
+//                    Log.w("PERRO", "createUserWithEmail:failure", task.exception)
+//                }
+//            }
+        //Login de usuario
+        //NO verifica usuario vacio y se rompe
+        //NO verifica contraseña vacia y se rompe
+        //Verifica si el ususaio existe
+        //Verifica contraseña
+//        auth.signInWithEmailAndPassword("ezequielap@gmail.com", "comiendo")
+//            .addOnCompleteListener(requireActivity()) { task ->
+//                if (task.isSuccessful) {
+//                    // Sign in success, update UI with the signed-in user's information
+//                    Log.d("PERRO", "signInWithEmail:success")
+//                } else {
+//                    // If sign in fails, display a message to the user.
+//                    Log.w("PERRO", "signInWithEmail:failure", task.exception)
+//                }
+//            }
+        // Modificar contraseña de usuario
+        // El susuario tiene que estar logeado
+//        val user = Firebase.auth.currentUser
+//        val newPassword = "comiendo"
+//        user!!.updatePassword(newPassword)
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    Log.d("PERRO", "User password updated.")
+//                }
+//            }
+        // BORRAR USUARIO
+        // El usuario tiene que estar logeado
+//        val user = Firebase.auth.currentUser!!
+//
+//        user.delete()
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    Log.d("PERRO", "User account deleted.")
+//                }
+//            }
+
         //Preferencias
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
@@ -109,24 +169,20 @@ class Pant_logeo : Fragment() {
             encontrado = false
             if (casilla_usuario.length() > 0) {
                 if (casilla_contra.length() > 0) {
-                    userList = usuarioDao?.loadAllPersons() as MutableList<Persona>
-                    for (cont in 0 until userList.size) {
-                        if (userList[cont].usuario.equals(casilla_usuario.text.toString()))
-                            encontrado = true
-                        if (encontrado) {
-                            if (userList[cont].contrasenia.equals(casilla_contra.text.toString())) {
+                    auth.signInWithEmailAndPassword(casilla_usuario.text.toString(), casilla_contra.text.toString())
+                        .addOnCompleteListener(requireActivity()) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
                                 val action = Pant_logeoDirections.actionPantLogeoToPantPrinc()
                                 v.findNavController().navigate(action)
-                                break
-                            }
-                            else {
-                                Snackbar.make(root_layout, "Contraseña incorrecta", Snackbar.LENGTH_SHORT).show()
-                                break
+                                Log.d("PERRO", "signInWithEmail:success")
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("PERRO", "signInWithEmail:failure", task.exception)
+                                Snackbar.make(root_layout, task.exception.toString(), Snackbar.LENGTH_SHORT).show()
+
                             }
                         }
-                        if (cont == (userList.size - 1))
-                            Snackbar.make(root_layout, "Usuario no registrado", Snackbar.LENGTH_SHORT).show()
-                    }
                 } else
                     Snackbar.make(root_layout, "Contraseña en blanco", Snackbar.LENGTH_SHORT).show()
             } else
@@ -137,24 +193,19 @@ class Pant_logeo : Fragment() {
         btn_signup.setOnClickListener {
             encontrado = false
             if (casilla_usuario.length() > 0){
-                if (casilla_contra.length() > 0){
-                    userList = usuarioDao?.loadAllPersons() as MutableList<Persona>
-                    for (cont in 0 until userList.size){
-                        if (userList[cont].usuario.equals(casilla_usuario.text.toString())) {
-                            encontrado = true
-                            break
+                auth.createUserWithEmailAndPassword(casilla_usuario.text.toString(), casilla_contra.text.toString())
+                    .addOnCompleteListener(requireActivity()) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            val action = Pant_logeoDirections.actionPantLogeoToPantPrinc()
+                            v.findNavController().navigate(action)
+                            Log.d("PERRO", "signInWithEmail:success")
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("PERRO", "createUserWithEmail:failure", task.exception)
+                            Snackbar.make(root_layout, task.exception.toString(), Snackbar.LENGTH_SHORT).show()
                         }
                     }
-                    if (encontrado)
-                        Snackbar.make(root_layout, "Usuario ya existente", Snackbar.LENGTH_SHORT).show()
-                    else {
-                        gen_id = (0..9999).random()
-                        usuarioDao?.insertPerson(Persona(gen_id, casilla_usuario.text.toString(), casilla_contra.text.toString()))
-                        Snackbar.make(root_layout, "Registro de usuario OK", Snackbar.LENGTH_SHORT).show()
-                    }
-                }
-                else
-                    Snackbar.make(root_layout, "Ingrese una contraseña", Snackbar.LENGTH_SHORT).show()
             }
             else
                 Snackbar.make(root_layout, "Ingrese el usuario a registrar", Snackbar.LENGTH_SHORT).show()

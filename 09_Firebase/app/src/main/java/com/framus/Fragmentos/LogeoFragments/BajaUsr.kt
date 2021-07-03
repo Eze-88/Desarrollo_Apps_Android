@@ -2,6 +2,7 @@ package com.framus.Fragmentos.LogeoFragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,9 @@ import com.framus.BaseDeDatos.usuarioDao
 import com.framus.Entidades.Persona
 import com.framus.a09_firebase.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class BajaUsr : Fragment() {
 
@@ -40,6 +44,7 @@ class BajaUsr : Fragment() {
     var encontrado : Boolean = false
     //Lista para las verificaciones
     lateinit var userList :MutableList<Persona>
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +80,9 @@ class BajaUsr : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        // Initialize Firebase Auth
+        auth = Firebase.auth
+
         //Preferencias
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
@@ -89,32 +97,30 @@ class BajaUsr : Fragment() {
 
         //Accion del boton de baja de usuario
         btn_baja.setOnClickListener {
-            encontrado = false
             if (casilla_usuario.length() > 0) {
                 if (casilla_contra.length() > 0) {
-                    userList = usuarioDao?.loadAllPersons() as MutableList<Persona>
-                    for (cont in 0 until userList.size) {
-                        if (userList[cont].usuario.equals(casilla_usuario.text.toString()))
-                            encontrado = true
-                        if (encontrado) {
-                            if (userList[cont].contrasenia.equals(casilla_contra.text.toString())) {
-                                usuarioDao?.delete(Persona(userList[cont].id,"",""))
-                                Snackbar.make(root_layout, "Usuario eliminado", Snackbar.LENGTH_SHORT).show()
-                                break
-                            }
-                            else {
-                                Snackbar.make(root_layout, "Contraseña incorrecta", Snackbar.LENGTH_SHORT).show()
-                                break
+                    auth.signInWithEmailAndPassword(casilla_usuario.text.toString(), casilla_contra.text.toString())
+                        .addOnCompleteListener(requireActivity()) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                val user = Firebase.auth.currentUser!!
+                                user.delete()
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            Log.d("PERRO", "User account deleted.")
+                                        }
+                                    }
+                                Log.d("PERRO", "signInWithEmail:success")
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("PERRO", "signInWithEmail:failure", task.exception)
+                                Snackbar.make(root_layout, task.exception.toString(), Snackbar.LENGTH_SHORT).show()
+
                             }
                         }
-                        if (cont == (userList.size - 1))
-                            Snackbar.make(root_layout, "Usuario no registrado", Snackbar.LENGTH_SHORT).show()
-                    }
-                }
-                else
+                } else
                     Snackbar.make(root_layout, "Contraseña en blanco", Snackbar.LENGTH_SHORT).show()
-            }
-            else
+            } else
                 Snackbar.make(root_layout, "Ingrese el usuario", Snackbar.LENGTH_SHORT).show()
         }
     }
