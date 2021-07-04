@@ -1,6 +1,7 @@
 package com.framus.Fragmentos
 
 import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,6 +19,10 @@ import com.framus.Entidades.Discos
 import com.framus.a09_firebase.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class Detalles_A : Fragment() {
 
@@ -45,6 +50,8 @@ class Detalles_A : Fragment() {
     //Base de datos online
     private val bd = FirebaseFirestore.getInstance()
 
+    var prueba: String = "Hola"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,6 +78,14 @@ class Detalles_A : Fragment() {
         //Asociacion de las variables la base de datos
         db = appDatabase.getAppDataBase(v.context)
         discosDAO = db?.discosDAO()
+
+        val parentJob = Job()
+        val scope = CoroutineScope(Dispatchers.Default + parentJob)
+
+        scope.launch {
+            configuro_ubicacion()
+            obtengo_ubicacion()
+        }
 
         bd.collection("albums").document(identificador.toString()).get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot != null){
@@ -123,6 +138,16 @@ class Detalles_A : Fragment() {
             val action = Contenedor_detallesDirections.actionContenedorDetallesToCorreccion2(id)
             v.findNavController().navigate(action)
         }
+    }
+
+    suspend fun configuro_ubicacion(){
+        prueba = "Como estas"
+        Log.d("UBIC","GPS configurado"+prueba)
+    }
+
+    suspend fun obtengo_ubicacion(){
+        prueba = "Normal"
+        Log.d("UBIC","Ubicacion obeniteda"+prueba)
     }
 
     companion object{

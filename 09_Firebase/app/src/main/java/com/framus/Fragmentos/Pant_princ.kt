@@ -20,13 +20,11 @@ import com.framus.BaseDeDatos.appDatabase
 import com.framus.BaseDeDatos.discosDAO
 import com.framus.Entidades.Discos
 import com.framus.a09_firebase.R
+import com.google.android.gms.common.internal.FallbackServiceBroker
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.android.synthetic.main.item_discos.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class Pant_princ : Fragment() {
@@ -53,6 +51,7 @@ class Pant_princ : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     //Base de datos online
     private val bd = FirebaseFirestore.getInstance()
+    var flag: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +78,20 @@ class Pant_princ : Fragment() {
 //        }
         //BORRO
         //bd.collection("albums").document("8289").delete()
+        bd.collection("albums")
+            .limit(30)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot != null) {
+                    for (disco in snapshot) {
+                        Log.d("PERRO","Lista traida OK")
+                        discos.add(disco.toObject())
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("PERRO", "Error getting documents: ", exception)
+            }
     }
 
     override fun onCreateView(
@@ -98,13 +111,6 @@ class Pant_princ : Fragment() {
         //Recycled view
         recDiscos = v.findViewById(R.id.rec_discos)
 
-        return v
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        //Leo la BD y la cargo en una lista para pasársela al Recycled View
         bd.collection("albums")
             .limit(30)
             .get()
@@ -112,13 +118,53 @@ class Pant_princ : Fragment() {
                 if (snapshot != null) {
                     discos.clear()
                     for (disco in snapshot) {
+                        Log.d("PERRO","Lista traida OK")
                         discos.add(disco.toObject())
                     }
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents: ", exception)
+                Log.w("PERRO", "Error getting documents: ", exception)
             }
+
+//        bd.collection("albums")
+//            .limit(30)
+//            .get()
+//            .addOnSuccessListener { snapshot ->
+//                if (snapshot != null) {
+//                    for (disco in snapshot) {
+//                        Log.d("PERRO","Lista traida OK")
+//                        discos.add(disco.toObject())
+//                    }
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w("PERRO", "Error getting documents: ", exception)
+//            }
+
+        return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        //var discos : MutableList<Discos> = ArrayList<Discos>()
+        //Leo la BD y la cargo en una lista para pasársela al Recycled View
+//        bd.collection("albums")
+//            .limit(30)
+//            .get()
+//            .addOnSuccessListener { snapshot ->
+//                if (snapshot != null) {
+//                    discos.clear()
+//                    for (disco in snapshot) {
+//                        Log.d("PERRO","Lista traida OK")
+//                        discos.add(disco.toObject())
+//                    }
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w("PERRO", "Error getting documents: ", exception)
+//            }
 
         //+++++RECYCLED VIEW+++++
         recDiscos.setHasFixedSize(true)
