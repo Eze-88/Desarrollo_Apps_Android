@@ -47,9 +47,6 @@ class Detalles_A : Fragment() {
     lateinit var text_anio: TextView
     lateinit var text_genero: TextView
     lateinit var text_distancia: TextView
-    //Definición de las variables la base de datos
-    private var db: appDatabase? = null
-    private var discosDAO: discosDAO? = null
     //Definicion de la variable para referenciar la vista
     lateinit var v: View
     //Creo el boton de confirmacion de compra
@@ -58,16 +55,13 @@ class Detalles_A : Fragment() {
     lateinit var btn_mod: Button
     //El frame
     lateinit var root_layout: ConstraintLayout
-    //Variable donde se carga el argumento del fragmento
-    var pos: Int = 0
-    //Variable auxiliar de busqueda
-    //var cd:  MutableList<Discos> = mutableListOf()
     //Base de datos online
     private val bd = FirebaseFirestore.getInstance()
-
+    // Permisos para la ubicacion
     val PERMISSION_ID = 42
+    //Variable necesaria para la ubicacion
     lateinit var mFusedLocationClient: FusedLocationProviderClient
-
+    //Variable que contendrá la ubicacion actual
     lateinit var ubicacion: Location
     var cidi: Discos? = null
 
@@ -107,9 +101,6 @@ class Detalles_A : Fragment() {
         btn_mod = v.findViewById(R.id.Corregir)
         //El frame
         root_layout = v.findViewById(R.id.frameLayout4)
-        //Asociacion de las variables la base de datos
-        db = appDatabase.getAppDataBase(v.context)
-        discosDAO = db?.discosDAO()
 
         bd.collection("albums").document(identificador.toString()).get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot != null){
@@ -123,11 +114,9 @@ class Detalles_A : Fragment() {
                     var distancia = FloatArray(1)
                     Location.distanceBetween(ubicacion.latitude,ubicacion.longitude,cd.lat,cd.long, distancia)
                     text_distancia.text = "Distancia (km): " + String.format("%.2f",distancia[0]/1000)
-                    //Log.d("DISTANCIA","La distancia es " + distancia[0].toString())
-                    //Log.d("DISTANCIA","La distancia es " + String.format("%.2f",distancia[0]/1000))
                 }
             } else {
-                Log.d("PERRO", "No existe el documento")
+                Log.d("ERROR_BD", "No existe el documento")
             }
         }
 
@@ -155,10 +144,7 @@ class Detalles_A : Fragment() {
 
         //Accion de baja de la tabla, comprando un disco
         btn_compra.setOnClickListener {
-            //discosDAO?.delete(Discos(id, "", "", "", "", ""))
             bd.collection("albums").document(identificador.toString()).delete()
-            //val action = Contenedor_detallesDirections.actionContenedorDetallesToPantPrinc()
-            //v.findNavController().navigate(action)
         }
 
         //Accion de modificacion de la tabla, corrigiendo la info de un disco
@@ -173,11 +159,11 @@ class Detalles_A : Fragment() {
             if (dataSnapshot != null){
                 val cd = dataSnapshot.toObject<Discos>()
                 if (cd != null) {
-                    Log.d("PERRO","Exito")
+                    Log.d("LOG_BD","Exito")
                     cidi = cd
                 }
             } else {
-                Log.d("PERRO", "No existe el documento")
+                Log.d("ERROR_BD", "No existe el documento")
             }
         }
     }
@@ -187,8 +173,6 @@ class Detalles_A : Fragment() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         getLastLocation()
-
-        Log.d("UBIC","GPS configurado")
     }
 
     @SuppressLint("MissingPermission")
@@ -202,8 +186,6 @@ class Detalles_A : Fragment() {
                         requestNewLocationData()
                     } else {
                         ubicacion = location
-                        Log.d ("UBICACION",location.latitude.toString())
-                        Log.d ("UBICACION",location.longitude.toString())
                     }
                 }
             } else {
@@ -231,10 +213,6 @@ class Detalles_A : Fragment() {
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             var mLastLocation: Location = locationResult.lastLocation
-            Log.d ("Test",mLastLocation.latitude.toString())
-            Log.d ("Test",mLastLocation.longitude.toString())
-//            findViewById<TextView>(R.id.latTextView).text = mLastLocation.latitude.toString()
-//            findViewById<TextView>(R.id.lonTextView).text = mLastLocation.longitude.toString()
         }
     }
 
