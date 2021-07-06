@@ -91,21 +91,21 @@ class Pant_princ : Fragment() {
 //            }
 //        }
         //BORRO
-        //bd.collection("albums").document("8289").delete()
-        bd.collection("albums")
-            .limit(30)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                if (snapshot != null) {
-                    for (disco in snapshot) {
-                        Log.d("PERRO","Lista traida OK")
-                        discos.add(disco.toObject())
-                    }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("PERRO", "Error getting documents: ", exception)
-            }
+//        //bd.collection("albums").document("8289").delete()
+//        bd.collection("albums")
+//            .limit(30)
+//            .get()
+//            .addOnSuccessListener { snapshot ->
+//                if (snapshot != null) {
+//                    for (disco in snapshot) {
+//                        Log.d("PERRO","Lista traida OK")
+//                        discos.add(disco.toObject())
+//                    }
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w("PERRO", "Error getting documents: ", exception)
+//            }
     }
 
     override fun onCreateView(
@@ -125,21 +125,21 @@ class Pant_princ : Fragment() {
         //Recycled view
         recDiscos = v.findViewById(R.id.rec_discos)
 
-        bd.collection("albums")
-            .limit(30)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                if (snapshot != null) {
-                    discos.clear()
-                    for (disco in snapshot) {
-                        Log.d("PERRO","Lista traida OK")
-                        discos.add(disco.toObject())
-                    }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("PERRO", "Error getting documents: ", exception)
-            }
+//        bd.collection("albums")
+//            .limit(30)
+//            .get()
+//            .addOnSuccessListener { snapshot ->
+//                if (snapshot != null) {
+//                    discos.clear()
+//                    for (disco in snapshot) {
+//                        Log.d("PERRO","Lista traida OK")
+//                        discos.add(disco.toObject())
+//                    }
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w("PERRO", "Error getting documents: ", exception)
+//            }
 
 //        bd.collection("albums")
 //            .limit(30)
@@ -164,28 +164,33 @@ class Pant_princ : Fragment() {
 
         //var discos : MutableList<Discos> = ArrayList<Discos>()
         //Leo la BD y la cargo en una lista para pasársela al Recycled View
-//        bd.collection("albums")
-//            .limit(30)
-//            .get()
-//            .addOnSuccessListener { snapshot ->
-//                if (snapshot != null) {
-//                    discos.clear()
-//                    for (disco in snapshot) {
-//                        Log.d("PERRO","Lista traida OK")
-//                        discos.add(disco.toObject())
-//                    }
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w("PERRO", "Error getting documents: ", exception)
-//            }
+        bd.collection("albums")
+            .limit(30)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot != null) {
+                    discos.clear()
+                    for (disco in snapshot) {
+                        Log.d("PERRO","Lista traida OK")
+                        discos.add(disco.toObject())
+                        recDiscos.setHasFixedSize(true)
+                        linearLayoutManager = LinearLayoutManager(context)
+                        recDiscos.layoutManager = linearLayoutManager
+                        discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
+                        recDiscos.adapter = discosListAdapter
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("PERRO", "Error getting documents: ", exception)
+            }
 
         //+++++RECYCLED VIEW+++++
-        recDiscos.setHasFixedSize(true)
-        linearLayoutManager = LinearLayoutManager(context)
-        recDiscos.layoutManager = linearLayoutManager
-        discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
-        recDiscos.adapter = discosListAdapter
+//        recDiscos.setHasFixedSize(true)
+//        linearLayoutManager = LinearLayoutManager(context)
+//        recDiscos.layoutManager = linearLayoutManager
+//        discosListAdapter = AdaptadorDiscos(discos, requireContext()) { x -> onItemClick(x) }
+//        recDiscos.adapter = discosListAdapter
 
         //Preferencias
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
