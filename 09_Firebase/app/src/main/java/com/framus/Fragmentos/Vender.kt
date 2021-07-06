@@ -32,9 +32,6 @@ class Vender : Fragment() {
     lateinit var v: View
     //El frame
     lateinit var root_layout: ConstraintLayout
-    //Definición de las variables la base de datos
-    private var db: appDatabase? = null
-    private var discosDAO: discosDAO? = null
     //Generador del ID de usuario
     var gen_id: Int = 0
     //Base de datos online
@@ -58,9 +55,6 @@ class Vender : Fragment() {
         casilla_cover= v.findViewById(R.id.casilla_cover)
         //El frame
         root_layout = v.findViewById(R.id.frameLayout3)
-        //Asociacion de las variables la base de datos
-        db = appDatabase.getAppDataBase(v.context)
-        discosDAO = db?.discosDAO()
 
         //Preferencias
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -81,7 +75,7 @@ class Vender : Fragment() {
         super.onStart()
 
         btn_conf.setOnClickListener {
-            gen_id = (5..9999).random()
+            gen_id = (0..9999).random()
             val cd = Discos(
                 gen_id,
                 casilla_banda.text.toString(),
@@ -93,9 +87,6 @@ class Vender : Fragment() {
                 0.toDouble()
             )
             bd.collection("albums").document(cd.id.toString()).set(cd)
-
-            //val action = VenderDirections.actionVenderToPantPrinc()
-            //v.findNavController().navigate(action)
         }
     }
 }

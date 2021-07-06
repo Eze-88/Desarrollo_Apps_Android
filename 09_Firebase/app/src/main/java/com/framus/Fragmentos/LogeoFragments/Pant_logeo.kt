@@ -1,6 +1,5 @@
 package com.framus.Fragmentos.LogeoFragments
 
-import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +10,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
-import com.framus.BaseDeDatos.usuarioDao
-import com.framus.BaseDeDatos.appDatabase
-import com.framus.Entidades.Persona
 import com.framus.a09_firebase.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -45,15 +40,7 @@ class Pant_logeo : Fragment() {
     lateinit var prefes: ImageView
     //El frame
     lateinit var root_layout: ConstraintLayout
-    //Definición de las variables la base de datos
-    private var db: appDatabase? = null
-    private var usuarioDao: usuarioDao? = null
-    //Lista para las verificaciones
-    lateinit var userList :MutableList<Persona>
-    //Bandera que indica si se encontró el usuario en la lista
-    var encontrado : Boolean = false
-    //Generador del ID de usuario
-    var gen_id: Int = 0
+    //Variable para la autenticacion por Firebase
     private lateinit var auth: FirebaseAuth
 
 
@@ -83,9 +70,6 @@ class Pant_logeo : Fragment() {
         prefes = v.findViewById(R.id.llave3)
         //El frame
         root_layout = v.findViewById(R.id.frameLayout)
-        //Asociacion de las variables la base de datos
-        db = appDatabase.getAppDataBase(v.context)
-        usuarioDao = db?.usuarioDao()
 
         //Boton de preferencias
         prefes.setOnClickListener {
@@ -102,55 +86,6 @@ class Pant_logeo : Fragment() {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
-        //Alta usuario
-        //Solo correos
-        //Verifica que la contraseña sea de por lo menos 6 caracteres
-        //Verifica si el usuario ya existe
-//        auth.createUserWithEmailAndPassword("ezequielap@gmail.com", "ezeeze")
-//            .addOnCompleteListener(requireActivity()) { task ->
-//                if (task.isSuccessful) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w("PERRO", "createUserWithEmail:failure", task.exception)
-//                }
-//            }
-        //Login de usuario
-        //NO verifica usuario vacio y se rompe
-        //NO verifica contraseña vacia y se rompe
-        //Verifica si el ususaio existe
-        //Verifica contraseña
-//        auth.signInWithEmailAndPassword("ezequielap@gmail.com", "comiendo")
-//            .addOnCompleteListener(requireActivity()) { task ->
-//                if (task.isSuccessful) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                    Log.d("PERRO", "signInWithEmail:success")
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w("PERRO", "signInWithEmail:failure", task.exception)
-//                }
-//            }
-        // Modificar contraseña de usuario
-        // El susuario tiene que estar logeado
-//        val user = Firebase.auth.currentUser
-//        val newPassword = "comiendo"
-//        user!!.updatePassword(newPassword)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    Log.d("PERRO", "User password updated.")
-//                }
-//            }
-        // BORRAR USUARIO
-        // El usuario tiene que estar logeado
-//        val user = Firebase.auth.currentUser!!
-//
-//        user.delete()
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    Log.d("PERRO", "User account deleted.")
-//                }
-//            }
-
         //Preferencias
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
@@ -166,19 +101,16 @@ class Pant_logeo : Fragment() {
 
         //Acción del botón de ingreso con usuario existente
         btn_logeo.setOnClickListener {
-            encontrado = false
             if (casilla_usuario.length() > 0) {
                 if (casilla_contra.length() > 0) {
                     auth.signInWithEmailAndPassword(casilla_usuario.text.toString(), casilla_contra.text.toString())
                         .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
                                 val action = Pant_logeoDirections.actionPantLogeoToPantPrinc()
                                 v.findNavController().navigate(action)
-                                Log.d("PERRO", "signInWithEmail:success")
+                                Log.d("LOGIN", "signInWithEmail:success")
                             } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("PERRO", "signInWithEmail:failure", task.exception)
+                                Log.w("LOGIN", "signInWithEmail:failure", task.exception)
                                 Snackbar.make(root_layout, task.exception.toString(), Snackbar.LENGTH_SHORT).show()
 
                             }
@@ -191,18 +123,15 @@ class Pant_logeo : Fragment() {
 
         //Acción del botón para el registro de usuario
         btn_signup.setOnClickListener {
-            encontrado = false
             if (casilla_usuario.length() > 0){
                 auth.createUserWithEmailAndPassword(casilla_usuario.text.toString(), casilla_contra.text.toString())
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
                             val action = Pant_logeoDirections.actionPantLogeoToPantPrinc()
                             v.findNavController().navigate(action)
-                            Log.d("PERRO", "signInWithEmail:success")
+                            Log.d("LOGIN", "signInWithEmail:success")
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("PERRO", "createUserWithEmail:failure", task.exception)
+                            Log.w("LOGIN", "createUserWithEmail:failure", task.exception)
                             Snackbar.make(root_layout, task.exception.toString(), Snackbar.LENGTH_SHORT).show()
                         }
                     }

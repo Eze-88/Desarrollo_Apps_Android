@@ -75,7 +75,6 @@ class AdaptadorDiscos(
             val v: ImageView = view.findViewById(R.id.img_disco)
 
             v.setOnClickListener {
-                //val action = Pant_princDirections.actionPantPrincToDetallesA(id)
                 val action = Pant_princDirections.actionPantPrincToContenedorDetalles(id)
                 v.findNavController().navigate(action)
             }

@@ -13,12 +13,9 @@ class Splash : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        //Luego de 2000mseg se ejecuta la activity principal
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }, 2000)
-
-        //Lo relacionado al diseño está en el XML
     }
 }

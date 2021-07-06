@@ -107,13 +107,13 @@ class BajaUsr : Fragment() {
                                 user.delete()
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
-                                            Log.d("PERRO", "User account deleted.")
+                                            Log.d("LOGIN", "User account deleted.")
                                         }
                                     }
-                                Log.d("PERRO", "signInWithEmail:success")
+                                Log.d("LOGIN", "signInWithEmail:success")
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.w("PERRO", "signInWithEmail:failure", task.exception)
+                                Log.w("LOGIN", "signInWithEmail:failure", task.exception)
                                 Snackbar.make(root_layout, task.exception.toString(), Snackbar.LENGTH_SHORT).show()
 
                             }

@@ -8,22 +8,6 @@
     tools:context="com.framus.Fragmentos.LogeoFragments.CmbContra" >
 
     <EditText
-        android:id="@+id/cmb_nueva_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFFFFF"
-        android:ems="10"
-        android:hint="Repita contraseña nueva"
-        android:inputType="textPersonName"
-        android:password="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/cambio_ctr"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cmb_nueva_1" />
-
-    <EditText
         android:id="@+id/cmb_usr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +33,7 @@
         android:password="true"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/cmb_nueva_2"
+        app:layout_constraintBottom_toTopOf="@+id/cambio_ctr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cmb_vieja_ctr" />
@@ -79,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cmb_nueva_2" />
+        app:layout_constraintTop_toBottomOf="@+id/cmb_nueva_1" />
 
     <ImageView
         android:id="@+id/llave"

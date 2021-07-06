@@ -33,21 +33,13 @@ class CmbContra : Fragment() {
     lateinit var casilla_contra_v: EditText
     //Casilla de ingreso de la contraseña nueva 1
     lateinit var casilla_contra_n1: EditText
-    //Casilla de ingreso de la contraseña nueva 2
-    lateinit var casilla_contra_n2: EditText
     //Creo el boton de modificacion de contraseña
     lateinit var btn_contra: Button
     //Imagen pulsable para las preferencias
     lateinit var prefes: ImageView
     //El frame
     lateinit var root_layout: ConstraintLayout
-    //Variables la base de datos
-    private var db: appDatabase? = null
-    private var usuarioDao: usuarioDao? = null
-    //Bandera que indica si se encontró el usuario en la lista
-    var encontrado : Boolean = false
-    //Lista para las verificaciones
-    lateinit var userList :MutableList<Persona>
+    //Variable para la autenticacion por Firebase
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -64,17 +56,12 @@ class CmbContra : Fragment() {
         casilla_contra_v = v.findViewById(R.id.cmb_vieja_ctr)
         //Casilla contraseña  nueva 1
         casilla_contra_n1 = v.findViewById(R.id.cmb_nueva_1)
-        //Casilla contraseña  nueva 1
-        casilla_contra_n2 = v.findViewById(R.id.cmb_nueva_2)
         //Boton de modificacion de contraseña
         btn_contra = v.findViewById(R.id.cambio_ctr)
         //Imagen pulsable para las preferencias
         prefes = v.findViewById(R.id.llave)
         //El frame
         root_layout = v.findViewById(R.id.frameLayout7)
-        //Variables la base de datos
-        db = appDatabase.getAppDataBase(v.context)
-        usuarioDao = db?.usuarioDao()
 
         //Boton de preferencias
         prefes.setOnClickListener {
@@ -110,21 +97,18 @@ class CmbContra : Fragment() {
                     auth.signInWithEmailAndPassword(casilla_usuario.text.toString(), casilla_contra_v.text.toString())
                         .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
                                 val user = Firebase.auth.currentUser
                                 val newPassword = casilla_contra_n1.text.toString()
                                 user!!.updatePassword(newPassword)
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
-                                            Log.d("PERRO", "User password updated.")
+                                            Log.d("LOGIN", "User password updated.")
                                         }
                                     }
-                                Log.d("PERRO", "signInWithEmail:success")
+                                Log.d("LOGIN", "signInWithEmail:success")
                             } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("PERRO", "signInWithEmail:failure", task.exception)
+                                Log.w("LOGIN", "signInWithEmail:failure", task.exception)
                                 Snackbar.make(root_layout, task.exception.toString(), Snackbar.LENGTH_SHORT).show()
-
                             }
                         }
                 } else
