@@ -12,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Genero:"
-        android:textSize="24sp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/Comprar"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/kilometros"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_anio_d" />
@@ -63,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Corregir"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_genero_d" />
+        app:layout_constraintTop_toBottomOf="@+id/kilometros" />
 
     <Button
         android:id="@+id/Corregir"
@@ -73,5 +73,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Comprar"
-        app:layout_constraintTop_toBottomOf="@+id/txt_genero_d" />
+        app:layout_constraintTop_toBottomOf="@+id/kilometros" />
+
+    <TextView
+        android:id="@+id/kilometros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:text="Distancia en km:"
+        app:layout_constraintBottom_toTopOf="@+id/Comprar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_genero_d"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

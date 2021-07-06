@@ -46,6 +46,7 @@ class Detalles_A : Fragment() {
     lateinit var text_titulo: TextView
     lateinit var text_anio: TextView
     lateinit var text_genero: TextView
+    lateinit var text_distancia: TextView
     //Definición de las variables la base de datos
     private var db: appDatabase? = null
     private var discosDAO: discosDAO? = null
@@ -99,6 +100,7 @@ class Detalles_A : Fragment() {
         text_titulo = v.findViewById(R.id.txt_titulo_d)
         text_anio = v.findViewById(R.id.txt_anio_d)
         text_genero = v.findViewById(R.id.txt_genero_d)
+        text_distancia = v.findViewById(R.id.kilometros)
         //Boton de venta
         btn_compra = v.findViewById(R.id.Comprar)
         //Boton de correcion
@@ -120,7 +122,9 @@ class Detalles_A : Fragment() {
                     text_genero.text = "Género: " + cd.genero
                     var distancia = FloatArray(1)
                     Location.distanceBetween(ubicacion.latitude,ubicacion.longitude,cd.lat,cd.long, distancia)
-                    Log.d("DISTANCIA","La distancia es " + distancia[0].toString())
+                    text_distancia.text = "Distancia (km): " + String.format("%.2f",distancia[0]/1000)
+                    //Log.d("DISTANCIA","La distancia es " + distancia[0].toString())
+                    //Log.d("DISTANCIA","La distancia es " + String.format("%.2f",distancia[0]/1000))
                 }
             } else {
                 Log.d("PERRO", "No existe el documento")
