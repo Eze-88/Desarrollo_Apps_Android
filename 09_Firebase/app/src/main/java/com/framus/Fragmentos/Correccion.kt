@@ -38,25 +38,9 @@ class Correccion : Fragment() {
     lateinit var casilla_cover: EditText
     //El frame
     lateinit var root_layout: ConstraintLayout
-    //Definición de las variables la base de datos
-    private var db: appDatabase? = null
-    private var discosDAO: discosDAO? = null
-    //Lista para las verificaciones
-    //var cd:  MutableList<Discos> = mutableListOf()
-    //Variable para determinar la posicion en la lista
-    var pos: Int = 0
     lateinit var cd: Discos
     //Base de datos online
     private val bd = FirebaseFirestore.getInstance()
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        //Asociacion de las variables la base de datos
-        db = appDatabase.getAppDataBase(requireContext())
-        discosDAO = db?.discosDAO()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,27 +89,18 @@ class Correccion : Fragment() {
         var genero: String
         var cover: String
 
-        //cd = discosDAO?.loadAllPersons() as MutableList<Discos>
-
         //Determinacion de la posicion del disco a corregir
         var id: Int = CorreccionArgs.fromBundle(requireArguments()).id
-
-//        for ( i in 0 until cd.size){
-//            if (cd[i].id == id){
-//                pos = i
-//                break
-//            }
-//        }
 
         bd.collection("albums").document(id.toString()).get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot != null){
                 val cd_leido = dataSnapshot.toObject<Discos>()
                 if (cd_leido != null) {
-                    Log.d("PERRO","Exito")
+                    Log.d("LOG_BD","Exito")
                     cd = cd_leido
                 }
             } else {
-                Log.d("PERRO", "No existe el documento")
+                Log.d("ERROR_BD", "No existe el documento")
             }
         }
 
@@ -157,12 +132,7 @@ class Correccion : Fragment() {
             else
                 cover = cd.caratula
 
-            //discosDAO?.updatePerson(Discos(id,banda,titulo,anio,genero,cover))
-
             bd.collection("albums").document(id.toString()).set(Discos(id,banda,titulo,anio,genero,cover,0.toDouble(),0.toDouble()))
-
-            //val action = CorreccionDirections.actionCorreccionToPantPrinc()
-            //v.findNavController().navigate(action)
         }
     }
 }

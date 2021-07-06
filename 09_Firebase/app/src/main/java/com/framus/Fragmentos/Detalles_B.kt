@@ -24,13 +24,6 @@ class Detalles_B : Fragment() {
     lateinit var v: View
     //El frame
     lateinit var root_layout: ConstraintLayout
-    //Definición de las variables la base de datos
-    private var db: appDatabase? = null
-    private var discosDAO: discosDAO? = null
-    //Variable auxiliar para encontrar el disco a mostrar
-    //var cd:  MutableList<Discos> = mutableListOf()
-    //Variable auxiliar para identificar el disco a mostrar
-    var pos: Int = 0
     //Base de datos online
     private val bd = FirebaseFirestore.getInstance()
 
@@ -44,27 +37,12 @@ class Detalles_B : Fragment() {
         //+++++ASOCIACIONES+++++
         //El frame
         root_layout = v.findViewById(R.id.frameLayout6)
-        //Asociacion de las variables la base de datos
-        db = appDatabase.getAppDataBase(v.context)
-        discosDAO = db?.discosDAO()
-
-//        //Identifico el disco a mostrar
-//        cd = discosDAO?.loadAllPersons() as MutableList<Discos>
-//
-//        val id: Int = Detalles_A.identificador
-//
-//        for ( i in 0 until cd.size){
-//            if (cd[i].id == id){
-//                pos = i
-//                break
-//            }
-//        }
 
         bd.collection("albums").document(Detalles_A.identificador.toString()).get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot != null){
                 val cd = dataSnapshot.toObject<Discos>()
                 if (cd != null) {
-                    Log.d("PERRO","Exito")
+                    Log.d("LOG_BD","Exito")
                     //Muestro la caratula
                     Glide
                         .with(requireContext())
@@ -74,11 +52,9 @@ class Detalles_B : Fragment() {
                     getImageView()
                 }
             } else {
-                Log.d("PERRO", "No existe el documento")
+                Log.d("ERROR_BD", "No existe el documento")
             }
         }
-
-
 
         //Preferencias
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
