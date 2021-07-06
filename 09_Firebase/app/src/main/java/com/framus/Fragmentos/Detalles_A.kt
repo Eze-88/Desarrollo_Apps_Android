@@ -35,6 +35,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.Math.pow
+import kotlin.math.sqrt
 
 class Detalles_A : Fragment() {
 
@@ -65,6 +67,21 @@ class Detalles_A : Fragment() {
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
+    lateinit var ubicacion: Location
+    var cidi: Discos? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val parentJob = Job()
+        val scope = CoroutineScope(Dispatchers.Default + parentJob)
+
+        scope.launch {
+            bajo_BD()
+            obtengo_ubicacion()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,24 +109,18 @@ class Detalles_A : Fragment() {
         db = appDatabase.getAppDataBase(v.context)
         discosDAO = db?.discosDAO()
 
-        val parentJob = Job()
-        val scope = CoroutineScope(Dispatchers.Default + parentJob)
-
-        scope.launch {
-            obtengo_ubicacion()
-            calculo_distancia()
-        }
-
         bd.collection("albums").document(identificador.toString()).get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot != null){
                 val cd = dataSnapshot.toObject<Discos>()
                 if (cd != null) {
-                    Log.d("PERRO","Exito")
                     //Se muestra toda la info del disco
                     text_banda.text = "Banda: " + cd.banda
                     text_titulo.text = "Título: " + cd.titulo
                     text_anio.text = "Año: " + cd.anio
                     text_genero.text = "Género: " + cd.genero
+                    var distancia = FloatArray(1)
+                    Location.distanceBetween(ubicacion.latitude,ubicacion.longitude,cd.lat,cd.long, distancia)
+                    Log.d("DISTANCIA","La distancia es " + distancia[0].toString())
                 }
             } else {
                 Log.d("PERRO", "No existe el documento")
@@ -153,6 +164,20 @@ class Detalles_A : Fragment() {
         }
     }
 
+    suspend fun bajo_BD(){
+        bd.collection("albums").document(identificador.toString()).get().addOnSuccessListener { dataSnapshot ->
+            if (dataSnapshot != null){
+                val cd = dataSnapshot.toObject<Discos>()
+                if (cd != null) {
+                    Log.d("PERRO","Exito")
+                    cidi = cd
+                }
+            } else {
+                Log.d("PERRO", "No existe el documento")
+            }
+        }
+    }
+
     suspend fun obtengo_ubicacion(){
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -160,10 +185,6 @@ class Detalles_A : Fragment() {
         getLastLocation()
 
         Log.d("UBIC","GPS configurado")
-    }
-
-    suspend fun calculo_distancia(){
-        Log.d("UBIC","Ubicacion obeniteda")
     }
 
     @SuppressLint("MissingPermission")
@@ -176,6 +197,7 @@ class Detalles_A : Fragment() {
                     if (location == null) {
                         requestNewLocationData()
                     } else {
+                        ubicacion = location
                         Log.d ("UBICACION",location.latitude.toString())
                         Log.d ("UBICACION",location.longitude.toString())
                     }

@@ -7,7 +7,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "discos")
-class Discos (id: Int, banda: String, titulo: String, anio: String, genero: String, caratula: String) : Parcelable {
+class Discos (id: Int, banda: String, titulo: String, anio: String, genero: String, caratula: String, latitud: Double, longitud: Double) : Parcelable {
 
     //Identificador del usuario, el que nunca se debe repetir
     @PrimaryKey
@@ -25,8 +25,12 @@ class Discos (id: Int, banda: String, titulo: String, anio: String, genero: Stri
     var genero: String
     @ColumnInfo(name = "caratula")
     var caratula: String
+    @ColumnInfo(name = "latitud")
+    var lat: Double
+    @ColumnInfo(name = "longitud")
+    var long: Double
 
-    constructor() : this(0,"","","","","")
+    constructor() : this(0,"","","","","",0.toDouble(),0.toDouble())
 
     //Tomo los parámetros recibidos y se los asigno a los atributos
     init {
@@ -36,6 +40,8 @@ class Discos (id: Int, banda: String, titulo: String, anio: String, genero: Stri
         this.anio = anio
         this.genero = genero
         this.caratula = caratula
+        this.lat = latitud
+        this.long = longitud
     }
 
     constructor(source: Parcel) :this(
@@ -44,7 +50,9 @@ class Discos (id: Int, banda: String, titulo: String, anio: String, genero: Stri
             source.readString()!!,
             source.readString()!!,
             source.readString()!!,
-            source.readString()!!
+            source.readString()!!,
+            source.readDouble()!!,
+            source.readDouble()!!
     )
 
     override fun describeContents() = 0
@@ -56,6 +64,8 @@ class Discos (id: Int, banda: String, titulo: String, anio: String, genero: Stri
         writeString(anio)
         writeString(genero)
         writeString(caratula)
+        writeDouble(lat)
+        writeDouble(long)
     }
 
     companion object {

@@ -88,7 +88,9 @@ class Vender : Fragment() {
                 casilla_titulo.text.toString(),
                 casilla_anio.text.toString(),
                 casilla_genero.text.toString(),
-                "https://static.wikia.nocookie.net/temonpe/images/c/cd/Cd.gif/revision/latest?cb=20100930214539&path-prefix=es"
+                "https://static.wikia.nocookie.net/temonpe/images/c/cd/Cd.gif/revision/latest?cb=20100930214539&path-prefix=es",
+                0.toDouble(),
+                0.toDouble()
             )
             bd.collection("albums").document(cd.id.toString()).set(cd)
 

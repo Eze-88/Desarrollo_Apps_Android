@@ -159,7 +159,7 @@ class Correccion : Fragment() {
 
             //discosDAO?.updatePerson(Discos(id,banda,titulo,anio,genero,cover))
 
-            bd.collection("albums").document(id.toString()).set(Discos(id,banda,titulo,anio,genero,cover))
+            bd.collection("albums").document(id.toString()).set(Discos(id,banda,titulo,anio,genero,cover,0.toDouble(),0.toDouble()))
 
             //val action = CorreccionDirections.actionCorreccionToPantPrinc()
             //v.findNavController().navigate(action)
