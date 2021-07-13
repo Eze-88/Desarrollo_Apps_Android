@@ -118,21 +118,21 @@
 //                Log.w("PERRO", "Error getting documents: ", exception)
 //            }
 
-//        bd.collection("albums")
-//            .limit(30)
-//            .get()
-//            .addOnSuccessListener { snapshot ->
-//                if (snapshot != null) {
-//                    discos.clear()
-//                    for (disco in snapshot) {
-//                        Log.d("PERRO","Lista traida OK")
-//                        discos.add(disco.toObject())
-//                    }
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w("PERRO", "Error getting documents: ", exception)
-//            }
+        bd.collection("albums")
+            .limit(30)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot != null) {
+                    discos.clear()
+                    for (disco in snapshot) {
+                        Log.d("PERRO","Lista traida OK")
+                        discos.add(disco.toObject())
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("PERRO", "Error getting documents: ", exception)
+            }
 
 //        bd.collection("albums")
 //            .limit(30)
